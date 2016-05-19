@@ -1,28 +1,22 @@
 \begin{enumerate}
-  \item Controlando acceso de usuarios según leyes de la región
   \item Simulando desafío de basket según nuevas reglas
-  \item Simulando desafío de otros deportes
+  \item Simulando desafíos de otros deportes
+  \item Estableciendo estadísticas de jugadores de sitios oficiales y modificadas según redes sociales
   \item Participando en modo liga de fantasía. Usuario. 
   \item Participando en desafío o torneo grupal. Usuario.
+  \item Chateando con otros participantes. Usuario.
+  \item Posicionándose en ranking jerárquico. Usuario.
+  \item Apostando dinero real en desafíos. Usuario.
+  \item Controlando acceso de usuarios según leyes de la región respecto a apuestas online
   \item Mirando desafío ficticio en tiempo real. Usuario.
   \item Mirando en vivo partidos de ligas reales. Usuario.
   \item Agregando publicidad en el sitio
-  \item Chateando con otros participantes. Usuario.
-  \item Apostando dinero real en desafíos. Usuario.
-  \item Posicionándose en ranking jerárquico. Usuario.
-  \item Posicionándose en ranking jerárquico. Usuario.
-  \item Estableciendo estadísticas de jugadores de sitios oficiales y modificadas según redes sociales
   \item Consultando datos estadísticos de usuarios de la aplicación
 \end{enumerate}
 
-\subsection{Descripción de los casos de uso}
+\subsection{Descripción de los casos de uso, agrupados por área}
 
-\textbf{Controlando acceso de usuarios según leyes de la región}
-
-Se refiere a evitar el acceso de los usuarios al juego en países o regiones en donde las apuestas en los sitios de internet sean consideradas
-ilegales, o bien permitir el registro de usuarios para que participen únicamente de los desafíos gratuitos.
-
-~
+\subsubsection{Simulación}
 
 \textbf{Simulando desafío de basket según las nuevas reglas}
 
@@ -32,12 +26,19 @@ por minutos en cancha, estadios locales y visitantes, condiciones climáticas, m
 
 ~
 
-\textbf{Creando y simulando desafíos para otros deportes}
+\textbf{Simulando desafíos de otros deportes}
 
-Se refiere a la posibilidad de realizar desafíos en ligas relacionadas con otros deportes de forma análoga al caso del basket. 
-Incluye agregar un simulador de partidos para cada uno de estos deportes.
+Se refiere a la posibilidad de simular desafíos para diversos deportes
 
 ~
+
+\textbf{Estableciendo estadísticas de jugadores de sitios oficiales y modificadas según redes sociales}
+
+Se refiere a levantar las estadísticas de jugadores desde sitios oficiales y autorizados. Además las estadísticas
+de los jugadores deberán modificarse en función de las menciones de los jugadores hechas en diversas redes sociales,
+incluído el sistema de mensajería entre participantes.
+
+\subsubsection{Desafíos}
 
 \textbf{Participando en modo liga de fantasía. Usuario}
 
@@ -54,6 +55,36 @@ Finalemnte, extender los desafíos de forma tal que también puedan ser creados 
 
 ~
 
+\textbf{Chateando con otros participantes. Usuario}
+
+Se refiere a agregar un servicio de mensajería que permita intercambiar mensajes tanto para participantes de un mismo desafío como para
+amigos a través de la plataforma.
+
+~
+
+\textbf{Posicionándose en ranking jerárquico. Usuario}
+
+Se refiere a posicionar a los jugadores en ranking jerárquicos: regionales, país, continente y mundial.
+De esta manera los jugadores solo pueden acceder a desafíos acordes a su ranking. Este último se resetea cada año.
+
+\subsubsection{Apuestas con dinero real}
+
+\textbf{Apostando dinero real en desafíos. Usuario}
+
+Se refiere a reemplazar el sistema de fichas ficticias por una suma de dinero real al momento de repartir premios por ganar desafíos.
+Incluye agregar e integrar el sistema de pagos y cobros, y el ingreso de datos de tarjetas de crédito y cuentas bancarias al sistema.
+
+~
+
+\textbf{Controlando acceso de usuarios según leyes de la región respecto a apuestas online}
+
+Se refiere a evitar el acceso de los usuarios al juego en países o regiones en donde las apuestas en los sitios de internet sean consideradas
+ilegales, o bien permitir el registro de usuarios para que participen únicamente de los desafíos gratuitos.
+
+
+
+\subsubsection{Streaming}
+
 \textbf{Mirando desafío ficticio en tiempo real. Usuario}
 
 Se refiere a que los usuarios puedan ver el minuto a minuto de los desafíos de forma gráfica. 
@@ -65,40 +96,11 @@ Subtareas: Elegir rendering 2D, 3D. Determinar rendering en función de la calid
 
 Se refiere a que los usuarios puedan ver desde la app o el sitio partidos de las ligas reales transmitidos en vivo.
 
-~
+\subsubsection{Publicidad y datos estadísticos}
 
 \textbf{Agregando publicidad en el sitio}
 
 Se refiere a desarrollar un mecanismo para que los sponsors e inversores de la aplicación puedan agregar publicidad de forma cómoda.
-
-~
-
-\textbf{Chateando con otros participantes. Usuario}
-
-Se refiere a agregar un servicio de mensajería que permita intercambiar mensajes tanto para participantes de un mismo desafío como para
-amigos a través de la plataforma.
-
-~
-
-\textbf{Apostando dinero real en desafíos. Usuario}
-
-Se refiere a reemplazar el sistema de fichas ficticias por una suma de dinero real al momento de repartir premios por ganar desafíos.
-Incluye agregar e integrar el sistema de pagos y cobros, y el ingreso de datos de tarjetas de crédito y cuentas bancarias al sistema.
-
-~
-
-\textbf{Posicionándose en ranking jerárquico. Usuario}
-
-Se refiere a posicionar a los jugadores en ranking jerárquicos: regionales, país, continente y mundial.
-De esta manera los jugadores solo pueden acceder a desafíos acordes a su ranking. Este último se resetea cada año.
-
-~
-
-\textbf{Estableciendo estadísticas de jugadores de sitios oficiales y modificadas según redes sociales}
-
-Se refiere a levantar las estadísticas de jugadores desde sitios oficiales y autorizados. Además las estadísticas
-de los jugadores deberán modificarse en función de las menciones de los jugadores hechas en diversas redes sociales,
-incluído el sistema de mensajería entre participantes.
 
 ~
 
@@ -124,4 +126,11 @@ de marketing, etc. Los datos recolectados son de caracter demográfico, valor de
   \item Dinero real- Datos muy sensibles
   \item Ranking jerarquico- Implica análisis de arquitectura
 \end{itemize}
+
+\textbf{Controlando acceso de usuarios según leyes de la región}
+
+Se refiere a evitar el acceso de los usuarios al juego en países o regiones en donde las apuestas en los sitios de internet sean consideradas
+ilegales, o bien permitir el registro de usuarios para que participen únicamente de los desafíos gratuitos.
+
+~
 

@@ -1,0 +1,85 @@
+\subsection{Riesgos de casos de uso}
+
+~
+
+\textbf{Caso de uso \#1:} Simulando desafío de basket según nuevas reglas
+\begin{itemize}
+\item{\textbf{Riesgo:} La versión anterior del simulador puede no ser lo suficientemente extensible/modificable como para poder incorporar los cambios requeridos, lo cual
+puede implicar un profundo rediseño}
+\item{\textbf{Contingencia:} Asignar la realización de este caso de uso a la primer etapa de la construcción para evitar posibles retrasos en la fecha de entrega. (No se incluye
+en la etapa de la elaboración ya que está relacionado con la funcionalidad y no con la arquitectura)}
+\item{\textbf{Probabilidad:} Media}
+\item{\textbf{Impacto:} Medio, ya que retrasaría la fecha del release del producto. Los usuarios quieren poder ver estos detalles y nuevas acciones en las simulaciones.}
+\end{itemize}
+
+~
+
+\textbf{Caso de uso \#2:} Simulando desafíos de otros deportes
+\begin{itemize}
+\item{\textbf{Riesgo:} Dominio desconocido: Pueden generarse contratiempos en el desarrollo de los simuladores de otro deporte, al ser escencialmente diferentes al basket}
+\item{\textbf{Descripción:} El equipo de desarrollo cuenta con cierta experiencia previa ya que ha implementado el simulador de basket. Sin embargo, el desarrollo de
+un simulador para otro deporte puede requerir contemplar situaciones que no han surgido hasta el momento}
+\item{\textbf{Mitigación:} Si bien resulta razonable tomar por cota superior el tiempo que ha tomado el desarrollo del simulador de basket para estimar el tiempo de los 
+demás simuladores, estimar un adicional del 20\% del tiempo para cualquier eventualidad}
+\item{\textbf{Probabilidad:} Media}
+\item{\textbf{Impacto:} Medio, ya que retrasaría la fecha del release del producto}
+\end{itemize}
+
+~
+
+\textbf{Caso de uso \#7:} Posicionándose en ranking jerárquico. Usuario.
+\begin{itemize}
+\item{\textbf{Riesgo:} La mala elección de la arquitectura o de la distribución de los servidores puede degradar gravemente la performance. La correcta implementación de este caso de uso es vital para el 'core' de la aplicación, debido a la masiva cantidad de usuarios que tenga el sistema}
+\item{\textbf{Contingencia: Asignarle al desarrollo de este caso de uso un papel central en el proceso. Dedicarle el tiempo necesario (o más) al análisis y la elección 
+de una arquitectura adecuada, una posible distribución de servidores y la elección de empresas que nos provean de dichos servidores vs la compra de servidores. Se le ha asignado
+un lugar en la 1ra iteración del proceso de elaboración}} 
+\item{\textbf{Probabilidad:} Alta}
+\item{\textbf{Impacto:} Alto. Una performance degradada a nivel general puede implicar graves riesgos para el producto}
+\end{itemize}
+
+~
+
+\textbf{Caso de uso \#8:} Apostando dinero real en desafíos. Usuario.
+\begin{itemize}
+\item{\textbf{Riesgo:} Los datos de tarjetas de crédito y bancarios ingresados por los usuarios pueden ser robados o publicados. Se está trabajando con data extremadamente
+sensible}
+\item{\textbf{Contingencia: Asignarle al desarrollo de este caso de uso un papel central en el proceso. Dedicarle el tiempo necesario (o más) al análisis y la elección 
+de una arquitectura adecuada que permita persistir estos datos utilizando estrictas normas de seguridad. Pedir asesoramiento y trabajar conjuntamente con un equipo de expertos en seguridad informática y encriptación. Se le ha asignado un lugar en la 2da iteración del proceso de elaboración}} 
+\item{\textbf{Probabilidad:} Alta}
+\item{\textbf{Impacto:} Alto. El robo o la publicación de datos bancarios puede tener consecuencias muy graves tanto económicas como legales para el proyecto}
+\end{itemize}
+
+~
+
+\textbf{Caso de uso \#9:} Controlando acceso de usuarios según leyes de la región respecto a apuestas online
+\begin{itemize}
+\item{\textbf{Riesgo:} Actuar de forma ilegal en aquellas regiones en donde las apuestas están prohibidas}
+\item{\textbf{Contingencia:} Reflexionar en conjunto con el caso de uso \textbf{\#8}} 
+\item{\textbf{Probabilidad:} Media}
+\item{\textbf{Impacto:} Medio. Pueden generarse inconvenientes económicos y legales}
+\end{itemize}
+
+~
+
+\textbf{Caso de uso \#10 y \#11:} Streaming de desafíos
+\begin{itemize}
+\item{\textbf{Riesgo:} Los usuarios no pueden ver los desafíos debido a que el streaming requiere de una cantidad de datos mayor a la soportada por la conexión}
+\item{\textbf{Contingencia: Asignarle al desarrollo de este caso de uso un papel central en el proceso. Dedicarle el tiempo necesario (o más) al análisis y la elección 
+de una arquitectura adecuada que permita transmitir muchos datos. Hacer un análisis profundo del estado de conectividad de cada región en donde desea lanzarse el prodcuto.
+Elegir el rendering en 2D/3D en función del análisis. Para el caso del streaming de los partidos reales, elegir la resolución en función del análisis realizado}} 
+\item{\textbf{Probabilidad:} Alta}
+\item{\textbf{Impacto:} Medio. Los usuarios desean ver los desafíos en la mayor calidad posible, pero estarán muy disconformes si no pueden hacerlo en absoluto}
+\end{itemize}
+
+
+\subsection{Tabla de análisis de riesgos}
+
+\begin{center}
+    \begin{tabular}{ | l | l | l | p{5cm} |}
+    \hline
+    Impacto | Probabilidad & Alta & Media & Baja \\ \hline
+    Alto & (7)-(8) & - & - \\ \hline
+    Medio & (10)-(11) & (1)-(2)-(9) & - \\ \hline
+    Bajo & - & - & - \\ \hline
+    \end{tabular}
+\end{center}
