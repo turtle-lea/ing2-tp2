@@ -1,0 +1,127 @@
+\begin{enumerate}
+  \item Controlando acceso de usuarios según leyes de la región
+  \item Simulando desafío de basket según nuevas reglas
+  \item Simulando desafío de otros deportes
+  \item Participando en modo liga de fantasía. Usuario. 
+  \item Participando en desafío o torneo grupal. Usuario.
+  \item Mirando desafío ficticio en tiempo real. Usuario.
+  \item Mirando en vivo partidos de ligas reales. Usuario.
+  \item Agregando publicidad en el sitio
+  \item Chateando con otros participantes. Usuario.
+  \item Apostando dinero real en desafíos. Usuario.
+  \item Posicionándose en ranking jerárquico. Usuario.
+  \item Posicionándose en ranking jerárquico. Usuario.
+  \item Estableciendo estadísticas de jugadores de sitios oficiales y modificadas según redes sociales
+  \item Consultando datos estadísticos de usuarios de la aplicación
+\end{enumerate}
+
+\subsection{Descripción de los casos de uso}
+
+\textbf{Controlando acceso de usuarios según leyes de la región}
+
+Se refiere a evitar el acceso de los usuarios al juego en países o regiones en donde las apuestas en los sitios de internet sean consideradas
+ilegales, o bien permitir el registro de usuarios para que participen únicamente de los desafíos gratuitos.
+
+~
+
+\textbf{Simulando desafío de basket según las nuevas reglas}
+
+Se refiere a modificar la simulación de forma tal que su duración sea similar a la de un partido real. Además incluye incorporar 
+nuevas acciones, eventos y características del entorno que modifican la simulación: fouls, tiros libres, cambio de jugadores, cansancio
+por minutos en cancha, estadios locales y visitantes, condiciones climáticas, movimientos de los jugadores y posiciones en cancha.
+
+~
+
+\textbf{Creando y simulando desafíos para otros deportes}
+
+Se refiere a la posibilidad de realizar desafíos en ligas relacionadas con otros deportes de forma análoga al caso del basket. 
+Incluye agregar un simulador de partidos para cada uno de estos deportes.
+
+~
+
+\textbf{Participando en modo liga de fantasía. Usuario}
+
+Se refiere a agregarle a los usuarios un modo en donde el resultado de los desafíos se definan según el desempeño de jugadores en partidos 
+de ligas reales.
+
+~
+
+\textbf{Participando en desafío o torneo grupal. Usuario}
+
+Se refiere a extender la modalidad de los desafíos de forma tal que puedan ser aceptados por varios jugadores. Estos desafíos corresponden a
+un único partido, o varios de ellos. Al mismo tiempo pueden ser simulados o resolverse en el modo liga de fantasía.
+Finalemnte, extender los desafíos de forma tal que también puedan ser creados por administradores del juego. 
+
+~
+
+\textbf{Mirando desafío ficticio en tiempo real. Usuario}
+
+Se refiere a que los usuarios puedan ver el minuto a minuto de los desafíos de forma gráfica. 
+Subtareas: Elegir rendering 2D, 3D. Determinar rendering en función de la calidad óptima
+
+~
+
+\textbf{Mirando en vivo partidos de ligas reales. Usuario}
+
+Se refiere a que los usuarios puedan ver desde la app o el sitio partidos de las ligas reales transmitidos en vivo.
+
+~
+
+\textbf{Agregando publicidad en el sitio}
+
+Se refiere a desarrollar un mecanismo para que los sponsors e inversores de la aplicación puedan agregar publicidad de forma cómoda.
+
+~
+
+\textbf{Chateando con otros participantes. Usuario}
+
+Se refiere a agregar un servicio de mensajería que permita intercambiar mensajes tanto para participantes de un mismo desafío como para
+amigos a través de la plataforma.
+
+~
+
+\textbf{Apostando dinero real en desafíos. Usuario}
+
+Se refiere a reemplazar el sistema de fichas ficticias por una suma de dinero real al momento de repartir premios por ganar desafíos.
+Incluye agregar e integrar el sistema de pagos y cobros, y el ingreso de datos de tarjetas de crédito y cuentas bancarias al sistema.
+
+~
+
+\textbf{Posicionándose en ranking jerárquico. Usuario}
+
+Se refiere a posicionar a los jugadores en ranking jerárquicos: regionales, país, continente y mundial.
+De esta manera los jugadores solo pueden acceder a desafíos acordes a su ranking. Este último se resetea cada año.
+
+~
+
+\textbf{Estableciendo estadísticas de jugadores de sitios oficiales y modificadas según redes sociales}
+
+Se refiere a levantar las estadísticas de jugadores desde sitios oficiales y autorizados. Además las estadísticas
+de los jugadores deberán modificarse en función de las menciones de los jugadores hechas en diversas redes sociales,
+incluído el sistema de mensajería entre participantes.
+
+~
+
+\textbf{Consultando datos estadísticos de usuarios de la aplicación}
+
+Se refiere a la consulta de datos de los usuarios estadísticos por parte de inversores y sponsors para ser utilizados en futuras campañas publicitarias,
+de marketing, etc. Los datos recolectados son de caracter demográfico, valor de las apuestas realizadas, jugador más seleccionado en los equipos, etc.
+
+\subsection{Tareas}
+
+\begin{itemize}
+  \item 1- Distribuír servidores en distintas regiones. Tiene que ver con arquitectura?
+  \item 1- Evaluar disponibilidad de servidores en distintas regiones
+  \item 2- Evaluar disponibilidad de servidores en distintas regiones
+  \item Ranking jerarquico- Implica análisis de arquitectura
+\end{itemize}
+
+\subsection{Análisis de riesgo}
+
+\begin{itemize}
+  \item 2- Adaptar el diseño de la versión previa de 'Curry game' para que soporte las nuevas funcionalidades
+  \item 3- Adaptar los casos de basket para alguno de los demás deportes puede traer algún contratiempo.
+  \item Dinero real- Datos muy sensibles
+  \item Ranking jerarquico- Implica análisis de arquitectura
+\end{itemize}
+
