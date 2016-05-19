@@ -1,0 +1,115 @@
+\documentclass[a4paper]{article}
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{pdfpages}
+\usepackage{enumerate}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{indentfirst}
+\usepackage{fancyhdr}
+\usepackage{latexsym}
+\usepackage[colorlinks=true, linkcolor=black]{hyperref}
+\usepackage{wrapfig}
+\usepackage{algpseudocode}
+\usepackage{calc}
+\usepackage{amsmath, amsthm, amssymb}
+\usepackage{amsfonts}
+\usepackage{lscape}
+\definecolor{gray}{gray}{0.5}
+\definecolor{light-gray}{gray}{0.95}
+\definecolor{orange}{rgb}{1,0.5,0}
+
+\input{page.layout}
+\usepackage{underscore}
+\usepackage{caratula}
+\usepackage{url}
+
+\newcommand{\cod}[1]{{\tt #1}}
+\newcommand{\negro}[1]{{\bf #1}}
+\newcommand{\ital}[1]{{\em #1}}
+\newcommand{\may}[1]{{\sc #1}}
+\newcommand{\tab}{\hspace*{2em}}
+
+\newcommand{\sprintstory}[6]{\begin{tabular}{| p{3cm} | p{12cm} |}
+ \hline
+ TargetProcess ID: & #1 \\
+ \hline
+ User Story: & #2 \\
+ \hline
+ Esfuerzo estimado: & #3 \\
+ \hline
+ Business Value: & #4 \\
+ \hline
+ Descripción: & #5 \\
+ \hline
+ Criterios de\newline Aceptación: & #6 \\
+ \hline
+\end{tabular}}
+
+\newcommand{\simplestory}[5]{\begin{tabular}{| p{3cm} | p{12cm} |}
+ \hline
+ TargetProcess ID: & #1 \\
+ \hline
+ User Story: & #2 \\
+ \hline
+ Esfuerzo estimado: & #3 \\
+ \hline
+ Business Value: & #4 \\
+ \hline
+ Descripción: & #5 \\
+ \hline
+\end{tabular}}
+
+\newenvironment{taskstable}
+{ \begin{tabular}{| p{14cm} | p{1cm} |}
+ \hline
+ \multicolumn{2}{|c|}{{\bf División en tareas}}\\
+ \hline
+ {\bf Tarea} & {\bf HH}\\
+ \hline }
+{ \end{tabular} }
+
+\newcommand{\task}[2]{#1 & #2\\
+ \hline}
+
+\hypersetup{
+ pdfstartview= {FitH \hypercalcbp{\paperheight-\topmargin-1in-\headheight}},
+ pdfauthor={Grupo},
+ pdfsubject={Dise\~{n}o}
+}
+
+\lstset{escapechar=@}
+
+\begin{document}
+
+\thispagestyle{empty}
+\materia{Ingeniería de Software II}
+\submateria{Primer Cuatrimestre de 2016}
+\titulo{Trabajo Práctico II: The Curry Game release v7.1.2}
+
+\integrante{Leandro Matayoshi}{79/11}{leandro.matayoshi@gmail.com}
+\integrante{Matías Pizzagalli}{257/12}{matipizza@gmail.com}
+\integrante{Gastón Requeni}{400/11}{grequeni@hotmail.com}
+\integrante{Martín Santos}{413/11}{martin.n.santos@gmail.com}
+
+\makeatletter
+
+\maketitle
+
+\newenvironment{myindentpar}[1]
+{\begin{list}{1}
+         {\setlength{\leftmargin}{#1}}
+         \item[]
+}
+{\end{list}}
+
+\newpage
+\section{Primera parte de la entrega}
+
+\newpage
+
+\bibliographystyle{plain}
+\bibliography{tp3}
+
+\end{document}
