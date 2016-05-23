@@ -47,19 +47,10 @@
  \hline
 \end{tabular}}
 
-\newcommand{\simplestory}[5]{\begin{tabular}{| p{3cm} | p{12cm} |}
- \hline
- TargetProcess ID: & #1 \\
- \hline
- User Story: & #2 \\
- \hline
- Esfuerzo estimado: & #3 \\
- \hline
- Business Value: & #4 \\
- \hline
- Descripción: & #5 \\
- \hline
-\end{tabular}}
+\newcommand{\usecase}[3]{\noindent\textbf{CU\##1. #2}
+
+#3
+\vspace{0.5cm}}
 
 \newenvironment{taskstable}
 { \begin{tabular}{| p{14cm} | p{1cm} |}
@@ -105,7 +96,7 @@
 {\end{list}}
 
 \newpage
-\section{Listado de casos de uso}
+\section{Casos de uso}
 \input{casos-uso}
 \newpage
 \section{Análisis de riesgos}

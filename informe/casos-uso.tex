@@ -1,111 +1,123 @@
-\begin{enumerate}
-  \item Simulando desafío de basket según nuevas reglas
-  \item Simulando desafíos de otros deportes
-  \item Estableciendo estadísticas de jugadores de sitios oficiales y modificadas según redes sociales
-  \item Participando en modo liga de fantasía. Usuario. 
-  \item Participando en desafío o torneo grupal. Usuario.
-  \item Chateando con otros participantes. Usuario.
-  \item Posicionándose en ranking jerárquico. Usuario.
-  \item Apostando dinero real en desafíos. Usuario.
-  \item Controlando acceso de usuarios según leyes de la región respecto a apuestas online
-  \item Mirando desafío ficticio en tiempo real. Usuario.
-  \item Mirando en vivo partidos de ligas reales. Usuario.
-  \item Agregando publicidad en el sitio
-  \item Consultando datos estadísticos de usuarios de la aplicación
-\end{enumerate}
+A continuación presentamos el diagrama de casos de uso simplificado (sólo mostramos relaciones entre casos de uso y actores, sin especificar dependencias).
 
-\subsection{Descripción de los casos de uso, agrupados por área}
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=\textwidth]{imagenes/casosDeUso.png}
+  \caption{Diagrama de Casos de Uso}
+\end{figure}
 
-\subsubsection{Simulación}
+\newpage
 
-\textbf{Simulando desafío de basket según las nuevas reglas}
+\subsection{Descripción de los casos de uso}
 
-Se refiere a modificar la simulación de forma tal que su duración sea similar a la de un partido real. Además incluye incorporar 
-nuevas acciones, eventos y características del entorno que modifican la simulación: fouls, tiros libres, cambio de jugadores, cansancio
-por minutos en cancha, estadios locales y visitantes, condiciones climáticas, movimientos de los jugadores y posiciones en cancha.
+\subsubsection{Cuenta de usuario}
+\usecase{01}
+{Registrándose en la aplicación. (Participante)}
+{Registro de participantes en la aplicación donde les solicitamos sus datos. Esto es necesario para poder autenticarse luego y poder usar la aplicación.}
 
-~
+\usecase{02}
+{Autenticándose en la aplicación. (Participante, Administrador)}
+{Único medio de ingreso a la aplicación para participar en desafíos o para realizar tareas administrativas (en el caso del Administrador).}
 
-\textbf{Simulando desafíos de otros deportes}
+\usecase{03}
+{Accediendo a estado de cuenta de participante. (Participante, Administrador)}
+{Consulta/modificación de datos personales, dinero ganado, dinero perdido, estadísticas de desafíos ganados, equipos armados, etc. Un Administrador puede acceder con los mismos privilegios que el Participante a cuentas de participantes (como help desk o para extraer datos útiles).}
 
-Se refiere a la posibilidad de simular desafíos para diversos deportes
+\subsubsection{Desafíos modo Simulación}
 
-~
+\usecase{04}
+{Creando un desafío modo simulación. (Participante, Administrador)}
+{Elección del tipo de torneo (plaoffs, liga, combinado zonas, etc), duración, deporte, cantidad máxima de participantes, fecha de inicio. Según la región del participante y según tenga acceso a niveles superiores, podrá elegir una región o se tomará la región del participante para mostrar el desafío a otros participantes de la misma región. Una vez creado empieza la cuenta regresiva para su comienzo. Usa el armado de equipo (CU\#10). Se indica premio si corresponde.}
 
-\textbf{Estableciendo estadísticas de jugadores de sitios oficiales y modificadas según redes sociales}
+\usecase{05}
+{Participando en desafío modo simulación. (Participante)}
+{Elección de un desafío de un listado de desafíos de la región. Usa el pago de la cuota de entrada (CU\#16). Usa también el armado de equipo (CU\#10). Al finalizar el desafío, ganará premios si corresponde.}
 
-Se refiere a levantar las estadísticas de jugadores desde sitios oficiales y autorizados. Además las estadísticas
-de los jugadores deberán modificarse en función de las menciones de los jugadores hechas en diversas redes sociales,
-incluído el sistema de mensajería entre participantes.
+\usecase{06}
+{Mirando partido simulado en tiempo real. (Participante)}
+{Motor de simulación según deporte. Generación de un stream que se traduce a video o se reproduce usando el motor 3D o 2D según se determine en tiempo de ejecución. En cuanto al simulador de basquet, habrá que extenderlo según nuevos requerimientos. El resto de los motores se crean desde cero.}
 
-\subsubsection{Desafíos}
+\subsubsection{Desafíos modo Liga de Fantasía}
 
-\textbf{Participando en modo liga de fantasía. Usuario}
+\usecase{07}
+{Creando desafío modo liga de fantasía. (Participante, Administrador)}
+{Elección de la cantidad de fechas reales que abarca, deporte, cantidad máxima de participantes, fecha de inicio. Según la región del participante y según tenga acceso a niveles superiores, podrá elegir una región o se tomará la región del participante para mostrar el desafío a otros participantes de la misma región. Una vez creado empieza la cuenta regresiva para su comienzo. Usa el armado de equipo (CU\#10).}
 
-Se refiere a agregarle a los usuarios un modo en donde el resultado de los desafíos se definan según el desempeño de jugadores en partidos 
-de ligas reales.
+\usecase{08}
+{Participando en desafío modo liga de fantasía. (Participante)}
+{Elección de un desafío de un listado de desafíos de la región. Usa el pago de la cuota de entrada (CU\#16). Usa también el armado de equipo (CU\#10). Al finalizar el desafío, ganará premios si corresponde. Los resultados de cada fecha se calculan en base a las estadísticas reales.}
 
-~
-
-\textbf{Participando en desafío o torneo grupal. Usuario}
-
-Se refiere a extender la modalidad de los desafíos de forma tal que puedan ser aceptados por varios jugadores. Estos desafíos corresponden a
-un único partido, o varios de ellos. Al mismo tiempo pueden ser simulados o resolverse en el modo liga de fantasía.
-Finalemnte, extender los desafíos de forma tal que también puedan ser creados por administradores del juego. 
-
-~
-
-\textbf{Chateando con otros participantes. Usuario}
-
-Se refiere a agregar un servicio de mensajería que permita intercambiar mensajes tanto para participantes de un mismo desafío como para
-amigos a través de la plataforma.
-
-~
-
-\textbf{Posicionándose en ranking jerárquico. Usuario}
-
-Se refiere a posicionar a los jugadores en ranking jerárquicos: regionales, país, continente y mundial.
-De esta manera los jugadores solo pueden acceder a desafíos acordes a su ranking. Este último se resetea cada año.
-
-\subsubsection{Apuestas con dinero real}
-
-\textbf{Apostando dinero real en desafíos. Usuario}
-
-Se refiere a reemplazar el sistema de fichas ficticias por una suma de dinero real al momento de repartir premios por ganar desafíos.
-Incluye agregar e integrar el sistema de pagos y cobros, y el ingreso de datos de tarjetas de crédito y cuentas bancarias al sistema.
-
-~
-
-\textbf{Controlando acceso de usuarios según leyes de la región respecto a apuestas online}
-
-Se refiere a evitar el acceso de los usuarios al juego en países o regiones en donde las apuestas en los sitios de internet sean consideradas
-ilegales, o bien permitir el registro de usuarios para que participen únicamente de los desafíos gratuitos.
+\usecase{09}
+{Mirando en vivo partidos de ligas reales. (Participante)}
+{Transmisión provista por dueños de los derechos de televisación en vivo de partidos reales.}
 
 
+\subsubsection{Desafíos (simulados o liga de fantasía)}
 
-\subsubsection{Streaming}
+\usecase{10}
+{Armando equipo. (Participante)}
+{Elección de jugadores en cada posición de la cancha y de los suplentes (difiere según deporte del desafío). Elección de un técnico para tener una estrategia de jugada o para sumar puntos según estadísticas (en el caso de liga de fantasía).}
 
-\textbf{Mirando desafío ficticio en tiempo real. Usuario}
+\usecase{11}
+{Consultado estado actual de un desafío. (Participante)}
+{Estado del partido actual tomado de la simulación o tomado de las estadísticas en tiempo real del partido real. Estado del torneo en general, usando resultados de las simulaciones o los resultados de fechas anteriores de la liga de fantasía. Incluye ranking de participantes.}
 
-Se refiere a que los usuarios puedan ver el minuto a minuto de los desafíos de forma gráfica. 
-Subtareas: Elegir rendering 2D, 3D. Determinar rendering en función de la calidad óptima
+\subsubsection{Chat}
 
-~
+\usecase{12}
+{Chateando con participantes del desafío. (Participante)}
+{Servicio de mensajería que permita intercambiar mensajes entre participantes de un mismo desafío.}
 
-\textbf{Mirando en vivo partidos de ligas reales. Usuario}
+\usecase{13}
+{Enviando IM a otro participante. (Participante)}
+{Servicio de mensajería instantánea entre dos participantes.}
 
-Se refiere a que los usuarios puedan ver desde la app o el sitio partidos de las ligas reales transmitidos en vivo.
+\subsubsection{Pagos y Cobros}
 
-\subsubsection{Publicidad y datos estadísticos}
+\usecase{14}
+{Ingresando datos de tarjeta de crédito. (Participante)}
+{La primera vez que se paga una cuota de entrada a desafío se solicitan los datos de tarjeta de crédito o cuenta corriente bancaria. En el caso de tarjeta de crédito, los datos se almacenan de forma segura y siempre pueden ser modificados.}
 
-\textbf{Agregando publicidad en el sitio}
+\usecase{15}
+{Ingresando datos de cuenta corriente. (Participante)}
+{La primera vez que se paga una cuota de entrada a desafío se solicitan los datos de tarjeta de crédito o cuenta corriente bancaria. En el caso de cuenta corriente, los datos se almacenan de forma segura y siempre pueden ser modificados.}
 
-Se refiere a desarrollar un mecanismo para que los sponsors e inversores de la aplicación puedan agregar publicidad de forma cómoda.
+\usecase{16}
+{Pagando cuota de entrada a desafío. (Participante)}
+{Confirmación de datos de pago y confirmación del pago. La comunicación con los sistemas de operaciones bancarias debe ser segura.}
 
-~
+\usecase{17}
+{Otorgando créditos a participantes. (Administrador)}
+{Les permite ingresar a desafíos sin pagar la cuota. Si ganan, se les resta la cuota del premio.}
 
-\textbf{Consultando datos estadísticos de usuarios de la aplicación}
+\subsubsection{Regionalización}
 
-Se refiere a la consulta de datos de los usuarios estadísticos por parte de inversores y sponsors para ser utilizados en futuras campañas publicitarias,
-de marketing, etc. Los datos recolectados son de caracter demográfico, valor de las apuestas realizadas, jugador más seleccionado en los equipos, etc.
+\usecase{18}
+{Consultando un ranking regional. (Participante, Administrador)}
+{Rankings de cada nivel. Según el nivel del participante, podrá acceder a uno o más rankings. Siempre puede acceder al de su región. Puede ver estadísticas de todos los participantes y los equipos que fueron usando en los desafíos.}
 
+\usecase{19}
+{Accediendo a balances del sitio por región. (Administrador)}
+{Información de cuenta y facturación del sitio en cada región, con distintos niveles de granularidad.}
+
+\usecase{20}
+{Especificando controles de acceso de usuarios según leyes de la región. (Administrador)}
+{Se puede filtrar el acceso total o permitir sólo el acceso a ciertos desafíos: sólo los que son gratuitos y sin premio en dinero, sólo los que son simulados, sólo ciertos deportes, etc. También se puede filtrar acceso a usuarios específicos.}
+
+\subsubsection{Publicidad}
+
+\usecase{21}
+{Agregando publicidad en el sitio. (Dueño de Derechos de TV, Representante de Engines Gráficos)}
+{ABM para agregar publicidad en los videos de simulación, en el engine 3D/2D, en los videos de partidos reales, o en distintos lugares estratégicos del sitio (a determinar). La interfaz es muy importante por cuestiones de usabilidad de los interesados. El acceso a este ABM está limitado a ciertas IPs y requiere datos de autenticación especiales.}
+
+
+\subsubsection{Minería de Datos}
+
+\usecase{22}
+{Consultando datos estadísticos históricos de usuarios. (Dueño de Derechos de TV, Representante de Engines Gráficos)}
+{Se refiere a la consulta de datos estadísticos de los usuarios por parte de inversores y sponsors para ser utilizados en futuras campañas publicitarias, de marketing, etc. Los datos recolectados son de caracter demográfico, valor de las apuestas realizadas, jugador más seleccionado en los equipos, etc.
+Todos los datos posibles se pueden consultar y descargar usando datos de autenticación especiales. Se puede filtrar por año, por región, por deporte, etc.}
+
+\usecase{23}
+{Consultando datos de preferencia / comportamiento de usuarios. (Dueño de Derechos de TV)}
+{Todos los datos posibles se pueden consultar y descargar, usando datos de autenticación especiales. Se pueden obtener usuarios específicos o filtrarlos por deporte, por región, por posición en aĺgún ranking, etc.}
