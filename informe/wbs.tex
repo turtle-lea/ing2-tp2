@@ -1,20 +1,29 @@
-\textbf{CU \#7: Posicionándose en ranking jerárquico}
-\begin{enumerate}
-  \item \textbf{CU\#7-T01}: Setting del entorno de versión actual de 'Curry Game'. Analizar si la tecnología actual puede responder a escalabilidad y performance. (24 horas)
-  \item \textbf{CU\#7-T02}: Investigación de distintos tipos de tecnologías si T01 fue negativa. (48 horas)
-  lanzar el producto.
-  \item \textbf{CU\#7-T03}: Análisis demográfico (cantidad de potenciales usuarios) y disponibilidad de recursos informáticos sobre las regiones, países y continentes en donde se desea
-  \begin{enumerate}
-    \item \textbf{\textbf{CU\#7-T03-st1}:} Análisis de tecnologías más populares por región (56 horas)
-    \item \textbf{\textbf{CU\#7-T03-st2}:} Análisis de tecnologías menos costosas por región (56 horas)
-    \item \textbf{\textbf{CU\#7-T03-st3}:} Análisis de compatibilidad de tecnologías entre distintas regiones (56 horas)
-  \end{enumerate}
-  \item \textbf{CU\#7-T04}: Propuesta y análisis entre distintas arquitecturas (32 horas)
-  \item \textbf{CU\#7-T05}: Elección de arquitectura (Tarea hito. 0 horas)
-  \item \textbf{CU\#7-T06}: Establecer grafo de conectividad y jerarquía entre servidores (32 horas)
-  \item \textbf{CU\#7-T07}: Análisis de estrategias para garantizar disponibilidad y tolerancia a fallas en regiones, países y continentes (40 horas)
-  \item \textbf{CU\#7-T08}: Definir conveniencia entre compra y mantenimiento de servidores vs comprar servicios externos (56 horas)
-  \item \textbf{CU\#7-T09}: Deploy a primeros servidores y primeras pruebas piloto regionales (50 horas)
-  \item \textbf{CU\#7-T10}: Prueba piloto integración de servidores para múltiples regiones (50 horas)
-\end{enumerate}
+En el proceso de elaboración se incluyen las tareas relacionadas con la arquitectura del sistema, y se genera una base ejecutable del código sobre la cual se pueda 
+empezar a testear dicha arquitectura.
+
+Al mismo tiempo se desarrollan los componentes con un rol central dentro de la arquitectura definida, y los módulos de los casos de uso con más riesgos
+de alto impacto a nivel estructural, dejando cada una en una iteración diferente. La idea es construir la arquitectura de forma incremental. La opción a nivel arquitectura propuesta
+en cada iteración debe ser compatible con la anterior, y al mismo tiempo solucionar el caso de uso actual.
+
+\begin{figure}[h!]
+   \includegraphics[scale=0.80]{imagenes/etapas-elaboracion.pdf}
+   \caption{División de tareas en la etapa de elaboración}
+\end{figure}
+
+En la etapa de construcción se desarrollan los módulos y casos de uso faltantes faltantes de forma iterativa incremental. 
+
+Finalmente en la etapa de transición se realizan tareas de mantenimiento.
+
+\newpage
+\begin{landscape}
+
+\begin{figure}[h!]
+   \includegraphics[scale=0.80]{imagenes/etapas-construccion.pdf}
+   \caption{División de tareas en la etapa de construcción y transición}
+\end{figure}
+
+\end{landscape}
+\newpage
+
+
 
