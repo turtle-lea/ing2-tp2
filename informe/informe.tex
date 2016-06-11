@@ -95,6 +95,19 @@
 }
 {\end{list}}
 
+\newcommand{\escenario}[8] {
+  \noindent \underline {{#1}} \newline
+  \noindent \textit{'{#2}'}
+  \begin{itemize}
+    \item \textbf{Fuente:} {#3}
+    \item \textbf{Estímulo:} {#4}
+    \item \textbf{Entorno:} {#5}
+    \item \textbf{Artefacto:} {#6}
+    \item \textbf{Respuesta:} {#7}
+    \item \textbf{Medición de respuesta:} {#8}
+  \end{itemize}
+}
+
 \newpage
 \section{Casos de uso}
 \input{casos-uso}
@@ -109,6 +122,7 @@
 \subsection{Division en etapas e iteraciones}
 \input{division-etapas}
 \newpage
+\input{escenarios}
 
 \newpage
 

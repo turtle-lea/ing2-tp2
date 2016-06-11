@@ -1,0 +1,500 @@
+\subsection{Atributos de calidad}
+
+En esta sección presentamos los escenarios de calidad que obtuvimos tras analizar los resultados del QAW.
+
+\subsubsection{Atributos de disponibillidad}
+
+\escenario
+{Atributo de disponibilidad}
+{El sistema debe estar andando todo el tiempo}
+{Externa}
+{Solicita acceso al sistema}
+{Normal}
+{Sistema}
+{El sistema responde normalmente}
+{Disponibilidad del 99,99\% (se puede caer aprox 1h en todo el año)}
+
+
+~
+
+\escenario
+{Atributo de disponibilidad}
+{Si falla un enlace regional, se redirige el tráfico a regiones cercanas de manera uniforme.}
+{Servidor regional}
+{No responde}
+{Normal}
+{Sistema}
+{El sistema detecta la falla en el servidor regional y redirige el tráfico a las regiones más cercanas. La región entra en modo degradado. Se loguea la falla y se envía una notificación al técnico en redes}
+{El servidor / enlace son reparados en menos de 24hs.}
+
+
+~
+
+\escenario
+{Atributo de disponibilidad}
+{Se produce una falla en una base de datos de un servidor}
+{Interna}
+{Falla en la base de datos de un servidor}
+{Normal}
+{Subsistema de almacenamiento y manejo de datos persistidos}
+{El subsistema detecta y loguea la falla. El servidor originial continúa operando normalmente a través del uso de votación. La base de datos cambia a silencioso en el caso de ser la primera falla, y es reemplazada por una nueva instancia en caso de ser la segunda. Se envía una notificación al Data Base Manager.}
+{Se garantiza disponibilidad a pesar de una falla en la base de datos el 99.99\% de las veces}
+
+~
+
+\escenario
+{Atributo de disponibilidad}
+{Se pierden datos de una base de datos de servidor}
+{Interna}
+{Pérdida de datos en una base de datos de servidor }
+{Normal}
+{Subsistema de almacenamiento y manejo de datos persistidos}
+{El subsistema detecta y loguea la falla. El servidor recupera los datos ya que cuenta con una base redundante. La base de datos cambia a silencioso en el caso de ser la primera falla, y es reemplazada por una nueva instancia en caso de ser la segunda. Se envía una notificación al Data Base Manager.}
+{Se mantienen los datos a pesar de una pérdida en una de las bases de datos el 99.99\% de las veces}
+
+~
+
+\escenario
+{Atributo de disponibilidad}
+{Se pierden los datos de todas las bases de datos de servidor}
+{Interna o externa}
+{Perdida de datos de todas las bases de datos de servidor}
+{Normal}
+{Subsistema de almacenamiento y manejo de datos persistidos}
+{El subsistema detecta y loguea la falla. El servidor vuelve al último estado consistente de las últimas 4 horas, ya que realiza un backup cada esa cantidad de tiempo. Se restauran todas las bases. Se envía una notificación al Data Base Manager.}
+{La probabilidad del escenario anterior es $< 4$ 0.00001\%. Las bases se restauran en un tiempo $< 4$ horas}
+
+~
+
+\escenario
+{Atributo de disponibilidad}
+{En cada región habrá varios servidores con una capacidad máxima de usuarios que puede atender, debido a limitaciones de hardware / conexión. Si nuevos usuarios se agregan y superan el 90\% de la capacidad, habrá que agregar un nuevo servidor y balancear la carga}
+{Externa}
+{Solicita acceso al sistema}
+{A 1 pedido de alcanzar el límite de usuarios}
+{Servidor regional}
+{El servidor responde normalmente. Se incorpora un nuevo servidor a la red, y se aplica el balanceo de carga correspondiente}
+{Se realiza la subdivisión de la región agregando un nuevo nodo en menos de 6 horas}
+
+~
+
+\escenario
+{Atributo de disponibilidad}
+{Enlaces congestionados durante streaming de partido real}
+{Externa}
+{Disminución de la capacidad de enlace durante streaming de partido real}
+{Normal}
+{Servidor regional}
+{Se detecta el cambio de bitrate. Se realiza un downgrade de la calidad de video. El usuario continúa observando el partido de forma fluída, pero con menor calidad.}
+{El streaming del video mantiene un rate constante de cuadros por segundo el 99.99\% de los casos}	
+
+~
+
+\escenario
+{Atributo de disponibilidad}
+{Enlaces congestionados durante rendering de simulación}
+{Externa}
+{Disminución de la capacidad de enlace durante streaming de simulación}
+{Normal}
+{Servidor regional}
+{Se detecta el cambio de bitrate. Se realiza un downgrade en el modo de simulación: De rendering 3D a rendering 2D}
+{El streaming de la simulación mantiene un rate constante de cuadros por segundo el 99.99\% de los casos}
+
+~
+
+\escenario
+{Atributo de disponibilidad}
+{Se caen enlaces de región durante transmisión de torneo continental o mundial}
+{Externa}
+{Caída de enlaces de región durante transmisión de torneo continental o mundial}
+{Normal}
+{Servidor regional}
+{Se detecta la caída de los enlaces en la región. Se utiliza la topología de la conexión de regiones para triangular los paquetes y que lleguen a los usuarios.}
+{El 99.99\% de las veces el usuario continúa viendo la transmisión del evento sin cortes abruptos, experimentando a lo sumo un cambio en la calidad del video}
+
+\subsubsection{Atributos de performance}
+
+\escenario
+{Atributo de performance}
+{Quiere que todo lo respectivo al manejo de dinero (depósitos y retiros de los participantes
+via tarjeta de crédito o caja de ahorro) sea super seguro (no quiere papelones y que los
+datos de las millones de tarjetas de los participantes aparezcan publicados en Reddit),
+transparente y rápido. Que los datos queden resguardados y sólo haya que actualizarlos
+esporádicamente.}
+{usuario}
+{depósito / retiro de dinero}
+{operación normal}
+{subsistema de pagos}
+{el sistema realiza la operación satisfactoriamente}
+{el sistema realiza la operación en menos de 15 segundos}
+
+~
+
+\escenario
+{Atributo de performance}
+{Propone un sistema de bitrate variable automático/manual de los streams de video para
+que se pueda bajar la calidad de los videos en base al bandwidth detectado disponible del
+usuario.}
+{usuario}
+{observa transmisión de partido (modo fantasía)}
+{sistema degradado}
+{sistema}
+{se modifica calidad del video}
+{se modifica la calidad del video en menos de 10 segundos}
+
+~
+
+\escenario
+{Atributo de performance}
+{Quiere que mientras sea posible se use el engine 3d de mayor calidad al 2d.}
+{usuario}
+{observa simulación de partido}
+{sistema degradado}
+{dispositivo móvil antiguo (?)}
+{se reemplaza engine 3d por 2d}
+{antes de comenzar la reproducción de la simulación se reemplaza el engine 3d por 2d}
+
+\subsubsection{Atributos de seguridad}
+
+\escenario
+{Atributo de seguridad}
+{Atacante intenta robar datos de tarjetas de crédito o cuentas corrientes bancarias, pero el sistema lo impide}
+{Atacante}
+{Intenta robar datos de tarjetas de crédito o cuentas corrientes almacenados en servidores}
+{Normal}
+{Datos del sistema}
+{Se detecta y se impide el ataque.}
+{Se detecta y se impide el 99\% de los ataques.}
+
+~
+
+\escenario
+{Atributo de seguridad}
+{Atacante roba datos de tarjetas de crédito o cuentas corrientes bancarias, pero no puede descifrarlos}
+{Atacante}
+{Roba datos de tarjetas de crédito o cuentas corrientes almacenados en servidores}
+{Normal}
+{Datos del sistema}
+{Se guardan los datos en un formato imposible de leer.}
+{Toma más de 1000 años descifrar los datos.}
+
+~
+
+\escenario
+{Atributo de seguridad}
+{Atacante intercepta comunicación del sistema con el usuario.}
+{Atacante}
+{Interviene pasivamente una comunicación entre el usuario y el sistema}
+{Normal}
+{Comunicación del sistema}
+{La comunicación está protegida por SSL, con lo cual el contenido de los paquetes es imposible de leer}
+{Toma más de 1000 años descifrar los datos interceptados}
+
+
+~
+
+\escenario
+{Atributo de seguridad}
+{Atacante se hace pasar por el sistema para robarle datos al usuario.}
+{Externa}
+{Interviene activamente una comunicación entre el usuario y el sistema, tomando el rol del sistema}
+{Normal}
+{Comunicación del sistema}
+{El sistema utiliza un mecanismo de autenticación del servidor mediante certificados y clave asimétrica. El browser alerta al usuario de que se han vulnerado los certificados SSL. Los paquetes obtenidos por el atacante están encriptados, por lo cual su contenido no puede determinarse}
+{Los usuarios advertidos acerca del posible riesgo comienzan una nueva sesión segura el 99.99\% de las veces. En el caso de que el usuario envíe datos sin darse cuenta, toma más de 1000 años descifrar los datos interceptados}
+
+~
+
+\escenario
+{Atributo de seguridad}
+{Atacante modifica mensajes enviados entre el sistema y el usuario para forzar al sistema a realizar acciones no solicitadas por el usuario.}
+{Externa}
+{Interviene activamente una comunicación entre el usuario y el sistema, modificando mensajes capturados en el canal de comunicación}
+{Normal}
+{Comunicación del sistema}
+{El sistema utiliza un mecanismo de verificación de integridad de los mensajes recibidos, tanto del lado del cliente como del servidor. El mecanismo de integridad viaja encriptado para evitar que sea modificado.}
+{Toma más de 1000 años encontrar un mensaje que estando modificado tenga sentido y verifique la integridad.}
+
+~
+
+\escenario
+{Atributo de seguridad}
+{Un usuario logueado logra vulnerar el subsistema de pagos y cobros.}
+{Usuario identificado}
+{Vulnera el subsistema de pagos y cobros y genera movimientos de dinero a su favor}
+{Normal}
+{Subsistema de pagos y cobros}
+{El sistema tiene un audit trail con el registro de todas las acciones realizadas por todos los usuarios logueados y revierte las operaciones realizadas por el usuario.}
+{El 99.99\% de las veces el log tiene todos los datos necesarios para revertir las operaciones del usuario.}
+
+~
+
+\escenario
+{Atributo de seguridad}
+{Usuario no autorizado desea hacer uso de los datos recolectados por minería}
+{Usuario sin privilegios de administrador}
+{Intento de acceso a datos recolectados por minería}
+{Normal}
+{Sistema}
+{El sistema loguea el intento de acceso. El sistema valida los permisos del usuario en el sistema y posteriormente niega el acceso}
+{Los usuarios no autorizados no logran acceder a los datos el 99.99999\% de los casos}
+
+~
+
+\escenario
+{Atributo de seguridad}
+{Auditor verifica que el código de la simulación y cálculo de resultados de desafíos no se haya modificado}
+{Auditor}
+{Solicitud de hashes de auditoría para módulos de simulación y cálculo de resultados de desafíos}
+{Normal}
+{Sistema}
+{Se otorgan los hashes correspondientes a ambos módulos}
+{La coincidencia de los hashes obtenidos con los conservados con el auditor garantizan que el código no ha cambiado el 99.9999\% de los casos (muy baja probabilidad de colisiones en la función de hash)}
+
+~
+
+\escenario
+{Atributo de seguridad}
+{Usuario culpa al sistema de que no se le ha asignado el premio de un desafío en el que ha participado y ganado, pero no figura su lista de desafíos}
+{Usuario}
+{Acusación de premio no otorgado}
+{Normal}
+{Sistema}
+{Se le muestra en base al audit trail del sistema el listado de todas las inscripciones a desafíos que realizó, quedando en evidencia que el usuario no se ha inscripto en dicho desafío}
+{El audit trail mantiene una relación 1 a 1 con las operaciones del usuario en un 99.99\% respecto a las acciones del usuario del sistema. Es decir, no hay acciones que no estén logueadas y en el log aparecen únicamente acciones realizadas por dicho usuario}
+
+~
+
+\escenario
+{Atributo de seguridad}
+{Resolvedor de desafío de liga de fantasía obtiene un dato erróneo de una jugada provisto por el sistema externo que brinda resultados en real-time}
+{Externa}
+{Dato erróneo del sistema proveedor}
+{Normal}
+{Sistema}
+{La resolución de una jugada en el minuto a minuto de un desafío de liga de fantasía es obtenida a partir de una votación, por lo que el resultado correcto es calculado}
+{El proceso de votación obtiene el resultado correcto el 99.99\% de las veces}
+
+\subsubsection{Atributos de modificabilidad}
+
+\escenario
+{Atributo de modificabilidad}
+{Quiere ver estadísticas acerca del comportamiento de los participantes de todas las
+temporadas (los más ganadores/perdedores en desafíos/dinero, los mejores/peores
+equipos formado por participantes de diferentes caps, valores de caps de participantes,
+rankings de regiones más ganadoras en desafíos/dinero, el modo de desafío más utilizado
+por los participantes, etc...). Lo que está en paréntesis son sólo ejemplos. Quiere que la
+mayor cantidad de datos que el sitio maneja pueda ser fácilmente minada por datos. Y
+que esos datos pueda estar a cargo de administradores expertos para luego crear
+desafíos acordes o otorgar créditos a participantes que califiquen.}
+{administrador}
+{agregar estadísticas acerca del comportamiento de los participantes}
+{tiempo de ejecución}
+{sistema}
+{se agrega las nuevas estadísticas}
+{se agregan las nuevas estadísticas en menos de una hora sin reiniciar el sistema}
+
+~
+
+\escenario
+{Atributo de portabilidad}
+{Debe de poder correr en la mayor cantidad de plataformas posibles, incluyendo móviles.}	
+{desarrollador}
+{adaptar interfaz a una nueva plataforma}
+{tiempo de diseño}
+{interfaz de usuario}
+{se adapta la interfaz a la nueva plataforma}
+{se adaptan los cambios en menos de 50hs}
+
+~
+
+\escenario
+{Atributo de modificabilidad}
+{Quiere una interfaz similar al representante de empresas con derechos de televisación (Maxi) para controlar publicidades en las simulaciones y el sitio en general.}
+{administrador}
+{modificar publicidad}
+{tiempo de ejecución}
+{interfaz para el manejo de publicidades}
+{se hace modificación de las publicidades}
+{se muestran las nuevas publicidades en menos de 20 segundos}
+
+~
+
+\escenario
+{Atributo de modificabilidad}
+{Plantea necesidad de regionalizar la plataforma, debido a lo limitado y la mala calidad del
+hardware/servidores disponibles para la plataforma en las regiones iniciales, sobre todo
+teniendo en cuenta que los streams de video pasan por “dentro” del sistema. No se está
+hablando de tercerizar el servicio a sitios como Vimeo o Youtube, sino que el tráfico pase
+de alguna manera por los servidores del sitio. Los enlaces físicos/hardware subyacente
+implica una cantidad de usuarios limitada / máxima por servidor}
+{Interna}
+{Incorporación una nueva región al sistema}
+{normal}
+{sistema}
+{se incorpora una nueva región}
+{el setup de la configuración se hace en menos de 5 horas}
+
+~
+
+\escenario
+{Atributo de modificabilidad}
+{También se quiere aumentar el caudal de redes sociales que se utilizan para “afectar” las estadísticas (no solo Twitter, sino incorporar Facebook,Google+, etc.)}
+{desarrollador}
+{incorporar una nueva red social al sistema}
+{tiempo de diseño}
+{sistema}
+{se incorpora la nueva red social}
+{se emplean menos de 40 hs}
+
+~
+
+\escenario
+{Atributo de modificabilidad}
+{Quiere que el énfasis se de en mejorar el módulo de simulación, para que sea lo más real
+posible. Tiene contacto con asociaciones de jugadores e incluso jugadores, técnicos y
+periodistas deportivos de diferentes deportes, para ayudar a mejorar el motor de
+reglas/simulación. También tiene contacto con empresas de redes sociales/sentiment
+analysis, para ayudar a interfacear con las mismas, y mejorar el módulo de
+menciones/popularidad de los jugadores. El espíritu es que toda la simulación pueda irse
+mejorando poco a poco hasta que represente lo mejor posible la realidad sin que sea un
+dolor de cabeza introducir cambios.}
+{sponsor, stakeholder}
+{agregar nuevas reglas/acciones al motor de simulación}
+{tiempo de diseño}
+{motor de simulación}
+{reglas/acciones nuevas agregadas sin efectos secundarios}
+{se invierten menos de 10hs hombre}
+
+
+\subsubsection{Atributos de usabilidad}
+
+\escenario
+{Atributo de usabilidad}
+{Quiere poder que él y sus administradores de confianza puedan ver un dashboard en
+tiempo real del estado de cuenta del sitio de cada una de las regiones y niveles (incluye locales, continentales, global, etc...) y de cualquier grupo de participantes.}	
+{administrador}
+{ver estado de cuenta del sitio}
+{tiempo de ejecución}
+{sistema}
+{el sistema provee un dashboard con el estado de cuenta del sitio de cada una de las regiones}
+{el administrador es capaz de administrar / comprender la información suministrada en menos de 5 minutos}
+
+~
+
+\escenario
+{Atributo de usabilidad}
+{Aunque no es su responsabilidad, le interesa que la interfaz gráfica de usuarios tenga la
+calidad de un “juego”, sobre toda al momento de ver a los jugadores, las jugadas de los
+técnicos, colocar el nombre y logo del equipo del participante, etc... con animaciones y
+efectos especiales con aceleración gráfica (blurs, iluminación dinámica, depth of field, etc).}
+{usuario}
+{el usuario desea administrar su equipo}
+{operación normal}
+{Interfaz web / Móvil}
+{se muestra una interfaz gráfica llena de animaciones en donde el usuario puede administrar su equipo }
+{el test de usabilidad supera el 95\% de satisfacción}
+
+~
+
+\escenario
+{Atributo de usabilidad}
+{Usabilidad del subsistema controlador de publicidades en las simulaciones y en el sitio}
+{Usuario administrador de publicidades}
+{Desea minimizar el impacto de sus errores al configurar publicidades}
+{Runtime}
+{Sistema}
+{Se provee un botón de cancelación para volver a la configuración anterior}
+{Los cambios realizados se vuelven atrás y las publicidades no cambian.}	
+
+~
+
+\escenario
+{Atributo de usabilidad}
+{Usabilidad del subsistema controlador de publicidades en las simulaciones y en el sitio}
+{Usuario administrador de publicidades}
+{Desea estar seguro de dónde se muestra en el sistema la publicidad que está modificando}
+{Runtime}
+{Sistema}
+{Se provee una previsualización de cada publicidad, ubicada en el entorno gráfico que corresponde, acompañada de un texto descriptivo.}
+{Durante 1 hora se le enseña a dos personas a usar la interfaz de ABM de publicidades y luego se les solicita hacer cambios en todas las publicidades. Modificarán correctamente al menos el 80\%.}
+
+~
+
+\escenario
+{Atributo de usabilidad}
+{Usabilidad del subsistema controlador de publicidades en las simulaciones y en el sitio}
+{Usuario administrador de publicidades}
+{Desea insertar la misma publicidad en muchos lugares del sistema de forma eficiente}
+{Runtime}
+{Sistema}
+{Se provee una funcionalidad especial para cargar una publicidad eligiendo múltiples sitios.}
+{Toma a lo sumo 3 clicks adicionales cargar una publicidad en muchos sitios que cargarla en un único sitio (además de todos los clicks necesarios para seleccionar los distintos sitios) (suponiendo que no se cometen errores en la selección de sitios).}
+
+~
+
+\escenario
+{Atributo de usabilidad}
+{Usabilidad del subsistema de pagos y cobros}
+{Usuario}
+{Desea estar tranquilo de que ingresar en el sistema su número de tarjeta de crédito o cuenta corriente es seguro.}
+{Runtime}
+{Sistema}
+{Se muestran los nombres de las autoridades que auditaron la seguridad del sistema y los documentos que lo prueban.}
+{En menos de 5 minutos el usuario se anima a ingresar sus datos.	}
+
+
+% \escenario
+% {Atributo de auditabilidad}
+% {}
+% {administrador}
+% {buscar operaciones hechas con tarjeta de crédito}
+% {operación normal}
+% {sistema}
+% {se muestra la operación buscada}
+% {cada vez que se realiza una operación con tarjeta de crédito se guarda quién la hizo, en qué momento, en qué ip y qué monto se acreditó / retiro}
+
+
+
+	
+	
+
+	
+	
+
+	
+	
+
+	
+	
+
+	
+	
+
+	
+	
+
+
+
+
+	
+	
+
+	
+	
+
+	
+	
+
+	
+
+	
+	
+
+	
+	
+
+	
+
+	
+	
