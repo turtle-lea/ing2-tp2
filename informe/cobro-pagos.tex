@@ -22,6 +22,8 @@ Funcionamiento:
 \item Luego con el resultado de la accion, la logeamos en el registro de movimiento y le devolvemos el resultado de la accion al Realizador y este al Manejador
 \end{enumerate}
 
+Ademas la información mas sensible (Numero de Tarjeta o Cuenta completa, codigo de seguridad de la tarjeta, etc) seran almacenada encriptada, mediante un algoritmo de clave asimetrica, donde la clave para desencriptar la tengan unicamente los dueños del sistema.
+
 De esta forma, cumpliriamos con un estandar de seguridad llamado PCI, el cual es necesario para para poder realizar cobros y pagos con tarjetas de credito y cuentas bancarias. Este estandar sera todo el tiempo testeado para verificar que estemos siempre cumpliendo y en norma, ya que en caso de no estarlo estariamos abierto a posibles ataques y/o robos de datos.
 
 \subsubsection{Biografia consultada}
