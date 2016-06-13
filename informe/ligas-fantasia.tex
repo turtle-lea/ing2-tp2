@@ -1,0 +1,20 @@
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{imagenes/fantasia.png}
+  \caption{Subsistema de Ligas de Fantasia.}
+\end{figure}
+
+El procesador de comienzo de desafío almacena el desafío nuevo en el repositorio de desafíos activos, junto con todos los partidos a tener en cuenta.
+Luego crea un procesador de comienzo de partido, que se encarga de revisar si el desafío indicado tiene algún partido que comenzar, y en caso que no sea así, programa un timer para
+que le avise cuándo comienza el próximo partido. En este esquema, se crea un procesador de comienzo de partido para cada desafío nuevo que llega.
+Cada vez que hay un partido, el procesador de comienzo de partido crea un procesador de minuto a minuto de partido. Este último, cada un minuto,
+solicita al Subsistema de Estadisticas de Partidos las últimas actualizaciones. Con ellas evalúa las reglas de puntajes y actualiza los rankings (por ejemplo, una regla podría ser "Si mete gol, suma 3 puntos", y si una actualización
+indica que Agüero metió un gol, entonces se envia al ranking A todos los participantes cuyo equipo tenga a Agüero suma 3 puntos).
+Una vez actualizado los rankings, vuelve aprogramar el timer por un minuto. De esta manera habrá un procesador minuto a minuto por cada partido activo, que en cada minuto
+actualizará los puntajes del ranking.\\
+
+El procesador de comienzo de partido, luego de crear el de minuto a minuto, se programa
+para el próximo partido. Si no hay más partidos, simplemente se destruye a sí mismo.\\
+
+Cuando cada partido termina, el procesador de minuto a minuto se destruye a sí mismo, pero antes avisa del fin de partido al procesador de fin de partido, que verifica si
+fue el último del desafio y en tal caso informa de la finalización del partido al subsistema de desafíos.

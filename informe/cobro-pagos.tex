@@ -1,0 +1,31 @@
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{imagenes/subs-cobro-y-pago.png}
+  \caption{Subsistema de cobros y pagos.}
+\end{figure}
+
+Los datos de tarjetas y cuentas y el Tokenizador corren en una maquina distinta a todo el resto. Esto se hace para aislarla lo maximo posible y evitar cualquier vulnerabilidad que pueda llegar a tener el resto del sistema. Ademas estas maquinas deberan tener seguridad fisica, para evitar posibles robos y/o violaciones fisicas al sistema.
+
+Funcionamiento:
+\begin{enumerate}
+\item {
+  \begin{itemize}
+  \item Caso medio de pago nuevo:
+  Al manejador le llegan pedidos de pagos y/o cobros, autenticados y con informacion de un medio de pago nuevo. Entonces le pasamos esta informacion a el Tokenizador, que le genera un token, persiste en base de datos la informacion y el token correspondiente y le devuelve el token al Manejador de pedidos.
+  \item Caso medio de pago existente:
+  Al manejador le llegan pedidos de pagos o cobros, autenticados y con un id o refencia minima (elegida en por el Cliente) de que medio de pago se usara. Entonces con ese id o referencia, le pedimos al Tokenizador y obtenemos el token correspondiente.
+  \end{itemize}
+}
+
+\item Luego con el token correspondiente, se lo brindamos al Realizador de pedidos, que entiende de tokens y con el se comunica con el medio de pago correspondiente y realiza la accion pertinente brindandole el token al medio de pago.
+
+\item Luego con el resultado de la accion, la logeamos en el registro de movimiento y le devolvemos el resultado de la accion al Realizador y este al Manejador
+\end{enumerate}
+
+De esta forma, cumpliriamos con un estandar de seguridad llamado PCI, el cual es necesario para para poder realizar cobros y pagos con tarjetas de credito y cuentas bancarias. Este estandar sera todo el tiempo testeado para verificar que estemos siempre cumpliendo y en norma, ya que en caso de no estarlo estariamos abierto a posibles ataques y/o robos de datos.
+
+\subsubsection{Biografia consultada}
+\begin{itemize}
+\item \href{https://www.pcisecuritystandards.org/documents/Tokenization_Guidelines_Info_Supplement.pdf}{Norma PCI.}\\
+\item \href{https://www.quora.com/Do-companies-like-Amazon-etc-have-a-server-farm-to-store-creditcard-information-on-database}{Como cuidan sus datos compañias del estilo Amazon.}
+\end{itemize}

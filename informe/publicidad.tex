@@ -1,0 +1,11 @@
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{imagenes/Subsistema-de-publicidad.png}
+  \caption{Subsistema de Publicidades.}
+\end{figure}
+
+La idea es que el manejador de pedidos stakeholders le indique al persisitidor de publicidades qué publicidad desea
+guardar, indicándole en dónde deber mostrarse (transmisión de un partido, simulación o página principal del sitio) y en qué momento (hora).
+Luego, el obtenedor de publicidades consulta periodicamente (cada 3 segundos) el repositorio solicitándole publicidades que deban mostrarse
+en el momento en que consulta (+/- 3 segundos) y las envía a traves de un router a cada componente que hará uso del mismo (subsistema de
+ simulación, subsistema de streaming y manejador de pedidos de usuario)

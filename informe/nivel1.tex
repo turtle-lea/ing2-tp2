@@ -1,23 +1,29 @@
-El sistema se compone de N de estas instancias. Cada una representa el software que corre en un servidor . N representa la cantidad de regiones (mínima unidad geográfica) en donde corre el sistema. Cada instancia está deployada en un servidor independiente, ubicado en dicha región. Cada uno de estos servidores tiene una réplica que corre en modo shadow por si el servidor primario falla.
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{imagenes/Nivel1.png}
+  \caption{Diagrama de Arquitectura de nivel 1.}
+\end{figure}
+
+El sistema se compone de N de estas instancias. Cada una representa el software que corre en un servidor. N representa la cantidad de regiones (mínima unidad geográfica) en donde corre el sistema. Cada instancia está deployada en un servidor independiente, ubicado en dicha región. Cada uno de estos servidores tiene una réplica que corre en modo shadow por si el servidor primario falla.
 El sistema se compone también del conjunto de componentes que corre en los dispositivos de los usuarios.
 
 Cada servidor almacena datos locales a su región. Las estadísticas que almacena, la información de desafíos, la información de sus usuarios son en su gran mayoría regionales, con la excepción
-de que dicho servidor esté siendo utilizando para algún desafío como nodo intermedio en el árbol de jerarquía de desafíos extra-regionales. (Ver documento jeraraquía global). En ese caso, 
+de que dicho servidor esté siendo utilizando para algún desafío como nodo intermedio en el árbol de jerarquía de desafíos extra-regionales. (Ver documento jeraraquía global). En ese caso,
 almacena y propaga los datos del desafío que está simulando.
 
 La comunicación entre el cliente y el servidor se realiza de 4 formas diferentes: Streaming de partido real, obtención de datos para rendering de simulación, realizar una compra de fichas
 para apostar o extracción de dinero y finalmente pedidos de consulta web comunes como ser: registración, login, consulta de ranking, creación de equipo, participación de desafío, etc. Llamamos
-'pedido general' a esta última categoría. Cada una de estas 4 formas de comunicación utiliza un conector distinto ya que necesitan satisfacer diferentes requerimientos. 
+'pedido general' a esta última categoría. Cada una de estas 4 formas de comunicación utiliza un conector distinto ya que necesitan satisfacer diferentes requerimientos.
 Estos conectores tienen un estilo call-return para poner énfasis en que la comunicación es sincrónica: Un usuario hace un pedido de streaming. A partir de ese momento se inicia una
 sesión entre el servidor y el usuario para mandar un flujo de datos a través del canal de comunicación que dura hasta que finaliza la conexión.
 
-El subsistema de desafíos maneja tanto las simulaciones como las ligas de fantasía. 
+El subsistema de desafíos maneja tanto las simulaciones como las ligas de fantasía.
 
 'Currification' tiene un acuerdo con las empresas televisivas proveedoras de transmisiones, mediante la cual permite crear enlaces para satisfacer los pedidos de los usuarios para ver
 partidos televisados. El manejador de pedidos recibe los datos de cada transimisión a través de un pipe, y resuelve a través de un mapping sesiones de usuarios vs transmisiones para
 saber qué transmisiones debe enviarle a cada usuario. Una situación análoga sucede con las simulaciones.
 
-Los stakeholders pueden agregar publicidades a través de una interfaz gráfica intuitiva y simple. Esta les permite decidir en qué lugar mostrarán cada publicidad: UI de la web, 
+Los stakeholders pueden agregar publicidades a través de una interfaz gráfica intuitiva y simple. Esta les permite decidir en qué lugar mostrarán cada publicidad: UI de la web,
 rendering de simulaciones o streaming de partidos. Por este motivo, el subsistema de publicidad rutea las nuevas publicidades a los subsistemas correspondientes.
 
 Los controles de auditoría se hacen sobre los subsistemas de pagos y cobros (para corroborar que no haya movimientos irregulares de dinero), y sobre el subsistema de simulación de
@@ -26,5 +32,4 @@ desafíos, verificando que el hash del código de simulación no haya sido modif
 La autenticación y restricción al sitio por parte de los usuarios se realiza a partir de reglas: Algunas direcciones de IP están restringidas. Correspondientes a aquellas zonas en donde
 están prohibidas las apuestas web. Por otro lado, cuando un usuario asocia una tarjeta a su cuenta el sistema verifica que la tarjeta sea local a la región a la cual se encuentra.
 Finalmente, cuando un usuario quiere realizar una compra utilizando una tarjeta, esta última debe coincidir con aquella que ha sido registrada previamente.
-
 

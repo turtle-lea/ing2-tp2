@@ -1,0 +1,10 @@
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{imagenes/Subsistema-de-estadistica-de-partido.png}
+  \caption{Subsistema de Estadisticas de Partidos.}
+\end{figure}
+
+Los proveedores estadisticos que tenemos contratados publican actualizaciones periodicas de los partidos que se están disputando.
+Como los datos publicados son propensos a errores decidimos utilizar un voter central que recibe las salidas de los múltiples procesadores y decide el
+resultado correcto en función de los votos. Estos resultados son persisitidos en un repositorio el cual puede ser accedido mediante el obtenedor de
+estadísticas de partidos.
