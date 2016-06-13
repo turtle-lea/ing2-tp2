@@ -60,7 +60,7 @@ En esta sección presentamos los escenarios de calidad que obtuvimos tras analiz
 {Normal}
 {Subsistema de almacenamiento y manejo de datos persistidos}
 {El subsistema detecta y loguea la falla. El servidor vuelve al último estado consistente de las últimas 4 horas, ya que realiza un backup cada esa cantidad de tiempo. Se restauran todas las bases. Se envía una notificación al Data Base Manager.}
-{La probabilidad del escenario anterior es $< 4$ 0.00001\%. Las bases se restauran en un tiempo $< 4$ horas}
+{La probabilidad del escenario anterior es $<$ 0.00001\%. Las bases se restauran en un tiempo $< 4$ horas}
 
 ~
 
@@ -90,12 +90,12 @@ En esta sección presentamos los escenarios de calidad que obtuvimos tras analiz
 
 \escenario
 {Atributo de disponibilidad}
-{Enlaces congestionados durante rendering de simulación}
+{Enlaces congestionados durante streaming de video de simulación}
 {Externa}
 {Disminución de la capacidad de enlace durante streaming de simulación}
 {Normal}
 {Servidor regional}
-{Se detecta el cambio de bitrate. Se realiza un downgrade en el modo de simulación: De rendering 3D a rendering 2D}
+{Se detecta el cambio de ancho de banda del enlace. Se realiza un downgrade en el bitrate}
 {El streaming de la simulación mantiene un rate constante de cuadros por segundo el 99.99\% de los casos}
 
 ~
@@ -134,7 +134,7 @@ esporádicamente.}
 que se pueda bajar la calidad de los videos en base al bandwidth detectado disponible del
 usuario.}
 {usuario}
-{observa transmisión de partido (modo fantasía)}
+{observa transmisión de partido}
 {sistema degradado}
 {sistema}
 {se modifica calidad del video}
@@ -148,9 +148,10 @@ usuario.}
 {usuario}
 {observa simulación de partido}
 {sistema degradado}
-{dispositivo móvil antiguo (?)}
+{dispositivo móvil antiguo}
 {se reemplaza engine 3d por 2d}
 {antes de comenzar la reproducción de la simulación se reemplaza el engine 3d por 2d}
+
 
 \subsection{Atributos de seguridad}
 
