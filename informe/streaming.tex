@@ -3,3 +3,13 @@
   \includegraphics[width=\textwidth]{imagenes/subs-streaming.png}
   \caption{Subsistema de streaming de partidos reales.}
 \end{figure}
+
+La interacción entre el manejador de pedidos y el componente de streaming de partidos reales es análoga al de las simulaciones.
+Los usuarios envían un pedido al manejador en donde solicitan ver el partido 'i'.
+El manajador guarda una entrada en el repositorio en donde agrega una entrada que establece que el usuario 'u' está subscripto
+al streaming del partido 'i'.
+
+El manager de pedidos de streaming crea entonces una entrada en el 'repositorio de streams solicitados'. Este repositorio es 
+consultado por el receptor de desafíos para saber a qué streamings generados por los proveedores de transmisiones suscribirse. 
+
+Hay un conector custom por cada proveedor de servicios diferente
