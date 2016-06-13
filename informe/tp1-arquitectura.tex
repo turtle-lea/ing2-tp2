@@ -1,0 +1,19 @@
+A continuación presentamos lo que seria un especie de Diagrama de Nivel 1 sobre la Arquitectura de la solución
+del TP1.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{imagenes/TP1-Arquitectura.png}
+  \caption{Arquitectura del TP1.}
+\end{figure}
+
+La idea basica es muy similar a la arquitectura propuesta en este trabajo practico, tenemos varios clientes
+que nos realizan pedidos, en este caso serian consultas a los Rankings, consultas a las estadisticas de jugadores
+y tecnicos o acciones respecto al sistema de desafios (creacion de cuentas, creacion de equipos, creacion de desafios,
+manejo de fichas, etc). Todos estos pedidos son recibidos por el Manejador de Pedidos, el cual redirige cada pedido
+al componente correspondiente.\\
+Por otro lado en el componente Subsistema de Usuarios y Desafios, como ya dije estara toda la logica sobre el tema de
+la creacion de equipos, desafios, etc. Este componente luego le brindara la informacion necesaria del desafio(Equipos, Jugadores, Tecnicos) al Subsistema de Simulacion para que este pueda simular el desafio. Luego una vez resuelta la simulacion, el subsistema de simulacion devuelve el log del partido para que el Subsitema de Usuarios y Desafios haga lo correspondiente, por un lado devolverle el resultado y el log al Manejador de pedidos para que le llegue al cliente, y por otro lado registrar el resultado, actualizar rankings, actualizar cap y pagar apuestas (en caso de ser necesario), etc.\\
+El Subsistema de Simulacion para poder simular el desafio consume por un lado las estadisticas historicas de los jugadores y por otro lado las menciones en Twitter, para asi de esta forma tener los valores correspondientes a la hora de calcular los umbrales de exito.\\
+
+Como podemos apreciar hay conceptos compartidos entre las dos Arquitecturas propuestas, pero la del Trabajo Practico 1 es mucho mas simple y chica, ya que la aplicacion en si era mas chica y menos compleja. No tenemos nada sobre ligas de fantasia, dinero real, tarjetas de credito, streaming de partidos reales, engines 2d y 3d para ver la simulacion, etc. Basicamente no teniamos ningun atributo de calidad por cumplir a raja tabla, por lo que es un Arquitectura pensada mucho mas en la funcionalidad que en otras cosas.
