@@ -10,6 +10,8 @@ El mismo mecanismo se produce de manera recursiva hasta llegar al nivel global.
 Los administradores pueden crear en desafíos en cada nivel, cuyos datos serán almacenados en el administrador de pedidos
 correspondientes. De esta manera se guardan datos de desafíos de los mejores a nivel mundial en el adm. nivel 1 y a nivel continental en el nivel 2. A nivel país, los administradores pueden crear desafíos que excedan a las provincias. Como por ejemplo, un gran DT en donde a priori se sabe que va a participar todo el país. Si esto fuera almacenado a nivel 4, todo el país debería acceder a ese mismo nodo de nivel 4.
 
+El componente ``Procesador de Solicitudes HTTP iniciales, geolocalización de IPs y monitoreo de servidores de nivel 5'' sólo se utiliza a nivel 1 para redirigir usuarios que acceden por primera vez por DNS al servidor de nivel 5 correspondiente a su zona.
+
 Una diferencia entre el nivel 4 y los demás es que existe comunicación horizontal entre los administradores del mismo nivel. Por ejemplo, si Juan creo un desfío en Córdoba y Rodrigo de Tucumán quiere ver el listado de desafíos Cordobeses para poder inscribirse en alguno, los administradores de pedidos cuentan con un bus de comunicación sin necesidad de utilizar
 al padre (de nivel 3: país=Argentina) como intermediario. Esto se hace para no sobrecargar de pedidos al componente
 que responde pedidos a nivel país. Por el contrario, como ya se mencionó anteriormente, si Rodrigo quiere ver el resultado de la fecha de Gran DT, el componente administrador de nivel 4 deberá forwardear el pedido al de nivel 3.
