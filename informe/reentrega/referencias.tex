@@ -51,7 +51,7 @@ El ``Resovedor de request HTTP'' primero busca el recurso en la caché:
 \end{itemize}
 
 En paralelo, hay un proceso ``Purgador de caché'' que cada X tiempo configurable borra las entradas
-de caché que en ese tiempo no hayan sido usadas.
+de caché que en ese tiempo no hayan sido usadas o que tengan TTL=0.
 
 
 \subsubsection{Client-Server Seguro con destinatario favorito y caché en el cliente}
@@ -78,4 +78,4 @@ El ``Resovedor de request HTTP'' primero busca el recurso en la caché:
 \end{itemize}
 
 En paralelo, hay un proceso ``Purgador de caché'' que cada X tiempo configurable borra las entradas
-de caché que en ese tiempo no hayan sido usadas.
+de caché que en ese tiempo no hayan sido usadas o que tengan TTL=0.
