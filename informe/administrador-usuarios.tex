@@ -1,0 +1,32 @@
+\subsection{Administrador de Usuarios.}
+
+%
+% \begin{figure}[H]
+%   \centering
+%   \includegraphics[width=\textwidth]{imagenes/Subsistema-de-estadistica-de-partido.png}
+%   \caption{Subsistema de Estadisticas de Partidos.}
+% \end{figure}
+
+
+Texto crudo a editar, TODO :
+- Login: Me llega un pedido, con user y password. Se lo fowardeo al Autenticador de usuarios, que le pide la informacion al Admin de datos, sobre este user en particular. Una vez obtenida la informacion comparo el hash de la password que me brinda el admin de datos y el hash generado con la password pasada en el pedido. En caso de que los hashes no sean iguales se le retorna acceso denegado. En caso de que sean igual, se le permite el acceso al user, retornando Ok y se le devuelve un token de sesion, que tiene una validez de determinado tiempo.
+Entonces guardamos esta sesion de manera local para que el usuario pueda comunicarse mandando unicamente este token.
+
+- Registro: Nos llega un pedido de registro con toda la informacion sobre el cliente. La persistimos en el adm de datos, habiendo validado lo necesario (user no repetido, bla bla). Devolvemos Ok o Rechazado.
+
+- Agregar tarjeta o cuenta: Me llega con toda la informacion del medio de pago/cobro, se lo fowardeo a al admin de medio de pago, que lo que hace es validar con el proveedor externo que el medio es valido (es correcto y se corresponde con el pais que el cliente dijo que es) y pedirle un token que lo reconozca, asi persistimos ese token que nos permite comunicanros con ellos y que entiendan de que le estmaos hablando. Persistimos en el adm de datos lo minimo para reconocer el medio de pago (X ej: provedor (visa, master, etc), ultimos 4 digitos de la tarjeta). En caso de que el medio de pago no sea valido, por que no es correcto o es de un pais distinto al del cliente, le rechazamos el pedido.
+- Eliminar medio de pago: Se fowardea al Admin de medios de pagos, que se ocupa de eliminar este medio de pago.
+- Mostrar medios de pago: Se fowardea al admin de medios de pagos, que le pide al adm de datos la informacion sobre los medios de pagos para mostrarsela al cliente (solo se le mostraria los datos minimos que persistimos que dije mas arriba).
+
+- Ver cantidad de fichas: Se fowardea al admin de fichas, que consulta en el adm de datos la cantidad de fichas del usuario.
+- Comprar fichas: El admin de fichas, le consulta al admin de medios de pagos la lista de los ya registrados, y se las muestra al usuario para que elija. Una vez que este elije uno, le pedimos al admin de medios de pagos que le cobre al medio de pago elegido la cantidad de plata asociada a la cantidad de fichas que pidio. El admin de medios de pagos, se comunica con el proveedor externo mediante el token generado previamente y le pide realizar el cobro correspondiente, recibiendo si la operacion se completo Ok o fue rechazada. Si la operacion fue Rechazada, le rechazamos la compra al cliente. En caso de que sea Aprobado el pago, el admin de fichas le pide al adm de datos que le agregue la nueva cantidad de fichas para el usuario correspondiente y le respondemos OK al usuario.
+- Vender fichas: El admin de fichas, primero consulta la cantidad de fichas en el adm de datos para validar que quiere vender/extraer una cantidad que el posee realmente. Al igual que el caso anterior, le pedimos al adm de medios de pagos que nos de la lista de medios registrados por el usuario y le damos a elegir al cliente uno. Una vez que este elije uno, le pedimos al adm de medios de pagos que le deposite la plata en ese medio de pago y luego le pide al adm de datos que le persista la nueva cantidad de fichas que tendria el cliente.
+
+- En el caso de un usuario querer acceder y/o modificar su informacion basica (tipo perfil, es decir, mail, fecha de nacimiento, direccion, bla bla. Me llegaria un pedido correspondiente al admin de informacion de usuario, que se encargara de pedirle al admin de datos, la informacion correspondiente asi el cliente puede observarla. De la misma forma este se encargara de pedirle al admin de datos que persista los cambios que pidio el cliente.
+
+- Ver Equipos: Me llega un pedido de ver equipos ya sea desde el Receptor de Pedidos o atravez del administrador de desafios (el cliente se esta inscribinedo en un desafio y desea elegir uno de sus equipos ya creados). El Manjeador de pedidos se lo fowardea al admin de equipos y este obtiene los equipos del adm de datos.
+- Crear Equipos: Lo mismo puede ser ya sea desde el Receptor de Pedidos o atravez del administrados de desafios. En ambos casos de actua igual. Me llega el pedido de creacion de equipo con un parametro que define el scope de equipos que se permite. El adm de equipos obtiene los jugadores y sus estadisticas (del adm de datos) para presentarselas al Usuario. Luego el usuario elije los jugadores pertienentes y cuando confirma, el adm de equipos le pide al adm de datos que persista el nuevo equipo relacionado al usuario.
+
+Los pedidos descontar fichas y agregar fichas del adm de desafios, son similares a los de comprar y retirar fichas pero sin implicar la comunicacion con el admin de medios de pagos. Unicamente se actualiza la cantidad de fichas del usuarios (porque paga el fee de entrada  aun desafio y por posibles premios de los desafios).
+
+El encriptador, recibe datos y los encripta con la clave publica del sistema. Los que lo utlizan son el admin medios de pagos, para luego almacenar el token y los datos encriptados, el registrador para encriptar la password y guardarla encriptada y el autenticador para encriptar la password que nos llega y comparala con la password guardada en base que ya fue encriptada.
