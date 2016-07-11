@@ -1,0 +1,11 @@
+\subsection{(Diagrama: conector_ssl) Conector SSL}
+
+La comunicación segura via SSL funciona de la siguiente manera. Supongamos que un cliente desea comenzar una comunicación segura con un servidor.
+
+En primer lugar, le solicita al servidor sus certificados SSL, para verificar la autoridad. Solicita tanto la clave pública como los certificados y los compara con los que tiene almacenados localmente.
+
+En el siguiente paso, el servidor le solicita al cliente que genere un número random. El cliente genera el número, lo encripta utilizando la clave pública para que sea el servidor el único que pueda leerlo y se lo envía.
+
+El servidor obtiene este número, lo desencripta utilizando su clave privada, y posteriormente utiliza el número aleatorio para generar una clave simétrica. La clave es encriptada mediante un algoritmo conocido por el cliente utilizando el número aleatorio, y luego utilizando la clave privada. El cliente utiliza la clave pública para resolver la primera enriptación, y luego el desencriptador con el mismo número aleatorio que le ha enviado al servidor. En este momento, ambas partes tienen la clave simétrica que utilizarán posteriormente para encriptar y desencriptar los pedidos y las respuestas.
+
+Ambos almacenan la clave simétrica en repositorios para su posterior uso. La clave simétrico expira cada cierto tiempo, por lo que el protocolo debe volver a ejecutarse.
