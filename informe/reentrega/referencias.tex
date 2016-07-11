@@ -12,10 +12,70 @@ Se presenta un listado de los conectores y notación especial utilizada en los d
 
 % gráfico
 
+El componente Enviador/Receptor intenta enviar el mensaje
+al destinatario favorito (Servidor) mediante SSL y setea un timer.
+Si el timer avisa, es decir si se produce un timeout, el componente
+cierra la sesión SSL creada previamente y busca al azar entre los
+demás destinatarios posibles, y repite el proceso. El destinatario
+favorito se marca como ``inaccesible'' y se setea un timer en 10
+minutos que avisará al componente ``Habilitador de destinatario
+favorito'' que vuelva a habilitar el destinario favorito para
+futuro uso.
+
+La idea es que si el destinatario favorito vuelve a ser accesible se
+vuelva a utilizar, pero se le da un tiempo antes de reintentar para
+no saturarlo y poder seguir operando sin que se produzca timeout
+en todos los pedidos (a causa de que el favorito está caido).
+
 \subsubsection{Client-Server Seguro con caché en el cliente}
 
 %gráfico
 
+El ``Resovedor de request HTTP'' primero busca el recurso en la caché:
+\begin{itemize}
+	\item Si no lo encuentra, busca el request entre los que fueron enviados pero aún no respondieron:
+	\begin{itemize}
+		\item Si no lo encuentra, de manera atómica escribe el request en ese repositorio para indicar a futuros
+        pedidos que ese request será cacheado a la brevedad. Luego envía el request al ``Enviador/Receptor de
+        request/response HTTP'', el cual lo envía al servidor. Cuando recibe la respuesta, la escribe en la caché
+        y luego marca el request con el flag de ``Cacheado'' en el repositorio de requests HTTP enviados. Finalmente
+        devuelve el response al ``Resolvedor de request HTTP'', que se lo retorna al cliente.
+        
+        \item Si lo encuentra, se suscribe al blackboard de Requests enviados que aún no respondieron.
+        Cuando el flag de ese request pasa a estar en ``Cacheado'', se dispara el evento
+        a todos los suscriptos para que sepan que ya está cacheado el pedido. Luego el ``Resolvedor de
+        request HTTP'' busca el pedido en la caché.
+	\end{itemize}
+	
+	\item  Si lo encuentra en la caché, simplemente lo retorna.
+\end{itemize}
+
+En paralelo, hay un proceso ``Purgador de caché'' que cada X tiempo configurable borra las entradas
+de caché que en ese tiempo no hayan sido usadas.
+
+
 \subsubsection{Client-Server Seguro con destinatario favorito y caché en el cliente}
 
 % gráfico
+
+El ``Resovedor de request HTTP'' primero busca el recurso en la caché:
+\begin{itemize}
+	\item Si no lo encuentra, busca el request entre los que fueron enviados pero aún no respondieron:
+	\begin{itemize}
+		\item Si no lo encuentra, de manera atómica escribe el request en ese repositorio para indicar a futuros
+        pedidos que ese request será cacheado a la brevedad. Luego envía el request al ``Enviador/Receptor de
+        request/response HTTP'', el cual lo envía al servidor. Cuando recibe la respuesta, la escribe en la caché
+        y luego marca el request con el flag de ``Cacheado'' en el repositorio de requests HTTP enviados. Finalmente
+        devuelve el response al ``Resolvedor de request HTTP'', que se lo retorna al cliente.
+        
+        \item Si lo encuentra, se suscribe al blackboard de Requests enviados que aún no respondieron.
+        Cuando el flag de ese request pasa a estar en ``Cacheado'', se dispara el evento
+        a todos los suscriptos para que sepan que ya está cacheado el pedido. Luego el ``Resolvedor de
+        request HTTP'' busca el pedido en la caché.
+	\end{itemize}
+	
+	\item  Si lo encuentra en la caché, simplemente lo retorna.
+\end{itemize}
+
+En paralelo, hay un proceso ``Purgador de caché'' que cada X tiempo configurable borra las entradas
+de caché que en ese tiempo no hayan sido usadas.

@@ -13,7 +13,7 @@ Concretamente, nuestro sistema tendrá 5 niveles:
 	\item Servidor web de clientes dentro de una Ciudad o pueblo.
 \end{enumerate}
 
-Los clientes realizarán pedidos únicamente a los servidores de nivel 5 (salvo la primera solicitud DNS, que la realizarán a root, ver sección DNS). Los servidores de nivel 5 manejan sesiones y comunicación web, pero no tienen datos. Entonces envían sus pedidos a los servidores de nivel 4, que almacenan datos de usuarios allí registrados y desafíos creados por esos usuarios (ver sección Administrador de Datos de nivel i). En general los pedidos serán resueltos a nivel 4 (Provincia-Ciudad) o entre distintos nodos de nivel 4 pertenecientes al mismo país. Esto permite que el ``scope'' de los desafíos sea a nivel nacional, impidiendo que se pueda acceder desde un nodo interno de un país a un nodo interno de otro país.
+Los clientes realizarán pedidos únicamente a los servidores de nivel 5 (salvo la primera solicitud DNS, que la realizarán a root, ver sección \ref{seccionDNS}). Los servidores de nivel 5 manejan sesiones y comunicación web, pero no tienen datos. Entonces envían sus pedidos a los servidores de nivel 4, que almacenan datos de usuarios allí registrados y desafíos creados por esos usuarios (ver sección \ref{seccionAdmDatos}). En general los pedidos serán resueltos a nivel 4 (Provincia-Ciudad) o entre distintos nodos de nivel 4 pertenecientes al mismo país. Esto permite que el ``scope'' de los desafíos sea a nivel nacional, impidiendo que se pueda acceder desde un nodo interno de un país a un nodo interno de otro país.
 
 Los nodos de nivel 3 almacenan desafíos creados a nivel nacional por los administradores y el ranking nacional. Los nodos de nivel 2 almacenan los desafíos creados a nivel Continental y el ranking continental. Y finalmente el de nivel 1 almacena los desafíos internacionales y el ranking internacional. Además cada nodo ejecuta los desafíos que hostea.
 
@@ -24,6 +24,9 @@ Además de la estructura de árbol, cada nodo en esta estructura está unívocam
 
 Por ejemplo, el único nodo de nivel 1 (la raíz del árbol) tiene GeoPath ``$<$ $>$''. El continente sudamericano (nivel 2) tiene GeoPath ``$<$Sudamérica$>$''. Argentina (nivel 3) tiene GeoPath ``$<$Sudamérica, Argentina$>$''. Y la ciudad de buenos aires tiene GeoPath ``$<$Sudamérica, Argentina, Bs.As., CABA$>$'' (nivel 4). Los nodos de nivel 5 no necesitan GeoPath dado que no almacenan datos y no es necesario referenciar específicamente uno de ellos (son todos iguales los nodos de nivel 5 que corresponden a cada nodo de nivel 4 ya que no almacenan datos).
 
+Internamente en cada nodo hay cero o más réplicas, tanto de software como de datos. Las réplicas de datos son sincronizadas utilizando redundancia pasiva por el administrador de datos (ver sección \ref{seccionAdmDatos}). Las réplicas de software se acceden utilizando un esquema de favoritismo, donde una de las réplicas es la favorita de ciertos nodos, pero si esa se cae, se utiliza otra aleatoriamente.
+
+Todos los números o decisiones tomadas aleatoriamente se basan en una distribución uniforme de la probabilidad, que a largo plazo permite distribuír la carga de forma equitativa.
 
 
 A continuación presentaremos distintos diagramas correspondientes a la vista de componentes y conectores de la arquitectura planteada junto con la explicación de cada uno y el deployment de algunos componentes.
