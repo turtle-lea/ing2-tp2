@@ -1,0 +1,46 @@
+Un administrador de pedidos es el encargado de responder consultas provenientes de niveles inferiores respecto a consultas de desafíos y ranking general. Cuando el administrador de datos tiene la información suficiente para responder al pedido, el
+mismo se resuelve en el momento. Por ejemplo, supongamos que Juan es un usuario de Córdoba y crea un desafío con id = 35.
+Si Pedro también es cordobés, al preguntar por el desafío de id=35 el administrador de pedidos de nivel 4 (provincia=Córdoba) va a contar con la información necesaria para responder.
+Distinto es el caso en el que Pedro consulta por un desafío que fue creado por un administrador a nivel nacional. En este caso, los datos van a ser manejados por el administrador de pedidos de nivel 3 (país=Argentina). En este caso, se forwardea el
+pedido para que sea resuelto por este último.
+El mismo mecanismo se produce de manera recursiva hasta llegar al nivel global.
+
+Los administradores pueden crear en desafíos en cada nivel, cuyos datos serán almacenados en el administrador de pedidos
+correspondientes. De esta manera se guardan datos de desafíos de los mejores a nivel mundial en el adm. nivel 1 y a nivel continental en el nivel 2. A nivel país, los administradores pueden crear desafíos que excedan a las provincias. Como por ejemplo, un gran DT en donde pueda participar todo el país.
+
+Una diferencia entre el nivel 4 y los demás es que existe comunicación horizontal entre los administradores del mismo nivel. Por ejemplo, si Juan creo un desfío en Córdoba y Rodrigo de Tucumán quiere ver el listado de desafíos Cordobeses para poder inscribirse en alguno, los administradores de pedidos cuentan con un bus de comunicación sin necesidad de utilizar
+al padre (de nivel 3: país=Argentina) como intermediario. Esto se hace para no sobrecargar de pedidos al componente
+que responde pedidos a nivel país. Por el contrario, como ya se mencionó anteriormente, si Rodrigo quiere ver el resultado de la fecha de Gran DT, el componente administrador de nivel 4 deberá forwardear el pedido al de nivel 3.
+
+Otra diferencia entre el nivel 4 y los demás es que en el componente administrador de usuarios dejan de tener sentido algunos componentes como por ejemplo el autenticador o el registrador de usuario ya que los usuarios nunca se van a registrar en los niveles superiores.
+
+A nivel continental país y continental no hay comunicación a nivel horizontal. El forwarding de pedidos generales siempre se propaga hacia arriba únicamente. Rodrigo, de Tucumán puede consultar: desafíos nacionales de Argentina, desafíos sudamericanos y desafíos mundiales. El pedido es forwardeado hasta el nivel que corresponde y luego desciende hasta el
+manejador de nivel 5 que generó el pedido. Para evitar sobrecargar a los niveles superiores (que potencialmente son los que pueden recibir mayor cantidad de pedidos), las respuestas se van cacheando en los niveles intermedios. Por ejemplo,
+si todos los usuarios de Sudamérica están preguntado por los resultados del desafío mundial de Básket los resultados
+se cachean en los administradores de nivel 4 (provincias), de nivel 3(país) y de nivel 2 (continente=Sudamérica).
+
+
+El administrador de pedidos de nivel i también es el encargado de propagar los datos de los renderizadores para simulación, el streaming de partidos reales y los datos de las ligas reales para que los desafíos de tipo liga de fantasía puedan resolverse
+en los demás administradores.
+Las 3 tipos utilizan buses de publisher/suscriber.
+Tanto la lógica del streaming de partidos reales como los datos de las ligas realesutilizados para resolver los desafíos es la siguiente: Como un usuario puede elegir equipos y armar desafíos de ligas de cualquier parte del mundo, independientemente de dónde viva, entonces cada nivel debe poder su suscribirse tanto a niveles superiores como inferiores. Los niveles superiores se utilizan como intermediarios para alcanzar nodos en otras ramas.
+
+Ejemplo: Rodrigo de Tucumán creo un desfafío de basquet utilizando la NBA como liga. Por lo tanto, le gustaría por un
+lado poder ver los partidos de la NBA para ir siguiendo sus resultados. Al mismo tiempo, el componente administrador
+de Tucumán deberá comenzar a recibir los datos de los partidos de la NBA para calcular los resultados. Estos datos
+son provistos por las empresas proveedoras al componente administrador de nivel 3, país=EE.UU.
+Entonces el flujo de la suscripción funciona de la siguiente forma. El \textbf{bus del administrador de flujo de streaming} del componente administrador de nivel 4 (provincia = Tucumán)
+desea subscribirse al streaming del partido de Spurs vs LA Lakers. Como actualmente no está streameando dicho partido,
+se comunica y suscribe all bus de administrador del flujo de streaming de nivel 3 (país=Argentina). Como este tampoco está streameando, se comunica y suscribe al bus del nivel 2 (continente=Sudamérica). Como este tampoco está streameando, se
+comunica con el  nivel 1 (Global). Este utiliza el identificador del partido e identifica que el evento es de América del Norte, por lo tanto
+se suscribe a dicho partido en el bus de América del Norte. El servidor de América del Norte identifica que el partido se
+está jugando en EEUU, por lo que se suscribe al mismo en el bus de dicho país. Finalmente, al llegar el pedido el componente
+administrador de EEUU se suscribe al proveedor de transmisiones de la NBA y comienza a recibir la transmisión del partido.
+En el proceso se armó la cadena de suscripciones necesaria para recibir los datos. Si algún otro usuario de Argentina o Sudamérica quisiera comenzar a recibir la transmisión también el proceso no tiene necesidad de repetirse.
+La lógica de los suscribers y los publishers es parte del conector. De esta manera podemos reutilizar la lógica en cada
+nivel, sin necesidad de repetir los componentes.
+
+Finalmente, los datos de la simulación funcionan de forma vertical únicamente, tal como los desafíos. Usuarios de distintos países
+o continentes no tienen la necesidad de ver simulaciones compartidas. Por lo tanto, cada componente administrador
+se suscribe a lo sumo al nivel i-1 (en caso de que la simulación no esté siendo generada por él mismo), y los paquetes
+se propagan de jerarquía mayor a menor dentro de una misma rama.
