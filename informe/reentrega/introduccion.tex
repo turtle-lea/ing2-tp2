@@ -1,0 +1,29 @@
+\subsection{Introducción}
+
+En esta nueva solución, haremos foco en la distribución de los datos y el software.
+
+Dado que se accederá al sistema potencialmente desde todas partes del mundo, no podemos tener un único servidor o conjunto de servidores que atiendan los pedidos porque necesitamos {\bf escalabilidad}. Entonces decidimos adoptar una arquitectura del estilo \emph{layered}, de tal manera que cada nivel tenga responsabilidades distintas y almacene datos distintos. Además estos niveles estarán asignados a servidores conectados con una topología lógica de árbol, donde las hojas corresponden a los clientes y la raíz a un nivel superior. Esto fuerza a que los pedidos suban y bajen en el árbol para llegar desde el punto A al punto B, evitando la saturación de un nodo muy solicitado (se evita que todos accedan al mismo tiempo a un nodo).
+
+Concretamente, nuestro sistema tendrá 5 niveles:
+\begin{enumerate}
+	\item Internacional.
+	\item Continental o regional.
+	\item País.
+	\item Estado/Provincia y Ciudad.
+	\item Servidor web de clientes dentro de una Ciudad o pueblo.
+\end{enumerate}
+
+Los clientes realizarán pedidos únicamente a los servidores de nivel 5 (salvo la primera solicitud DNS, que la realizarán a root, ver sección DNS). Los servidores de nivel 5 manejan sesiones y comunicación web, pero no tienen datos. Entonces envían sus pedidos a los servidores de nivel 4, que almacenan datos de usuarios allí registrados y desafíos creados por esos usuarios (ver sección Administrador de Datos de nivel i). En general los pedidos serán resueltos a nivel 4 (Provincia-Ciudad) o entre distintos nodos de nivel 4 pertenecientes al mismo país. Esto permite que el ``scope'' de los desafíos sea a nivel nacional, impidiendo que se pueda acceder desde un nodo interno de un país a un nodo interno de otro país.
+
+Los nodos de nivel 3 almacenan desafíos creados a nivel nacional por los administradores y el ranking nacional. Los nodos de nivel 2 almacenan los desafíos creados a nivel Continental y el ranking continental. Y finalmente el de nivel 1 almacena los desafíos internacionales y el ranking internacional. Además cada nodo ejecuta los desafíos que hostea.
+
+Además de la estructura de árbol, cada nodo en esta estructura está unívocamente identificado por un nombre llamado ``GeoPath''. Este nombre se representa como una tupla que indica el nombre geográfico de cada nivel para acceder un nodo, siguiendo este esquema:
+\begin{center}
+	$<$Continente, País, Estado/Provincia, Ciudad$>$
+\end{center}
+
+Por ejemplo, el único nodo de nivel 1 (la raíz del árbol) tiene GeoPath ``$<$ $>$''. El continente sudamericano (nivel 2) tiene GeoPath ``$<$Sudamérica$>$''. Argentina (nivel 3) tiene GeoPath ``$<$Sudamérica, Argentina$>$''. Y la ciudad de buenos aires tiene GeoPath ``$<$Sudamérica, Argentina, Bs.As., CABA$>$'' (nivel 4). Los nodos de nivel 5 no necesitan GeoPath dado que no almacenan datos y no es necesario referenciar específicamente uno de ellos (son todos iguales los nodos de nivel 5 que corresponden a cada nodo de nivel 4 ya que no almacenan datos).
+
+
+
+A continuación presentaremos distintos diagramas correspondientes a la vista de componentes y conectores de la arquitectura planteada junto con la explicación de cada uno y el deployment de algunos componentes.
