@@ -1,0 +1,19 @@
+\subsection{Administrador de Simulaciones}
+
+% PRIMER FIGURA
+% \begin{figure}[H]
+%   \centering
+%   \includegraphics[width=\textwidth]{imagenes/Subsistema-de-estadistica-de-partido.png}
+%   \caption{Administrador de simulaciones.}
+% \end{figure}
+
+Este componente es el encargado de inicializar y correr los simuladores. En particular nos llegan pedidos del \texttt{Administrador de desafios} donde nos indican que debemos inicializar la simulación de un partido, con una referencia a que deporte es, que equipos participan y la información pertinente de los equipos, es decir jugadores y tecnico. Entonces de esta forma el Receptor de pedidos crea una nueva instancia de un Simulador, con los parametros correspondientes, deporte, equipos, jugadores, tecnico. Luego el Simulador obtiene las estadisticas de cada jugador y comienza a simular el partido, alimentandose tambien de la información recolectada de las redes sociales, para asi mejorar o empeorar el rendimiento de los jugadores.
+
+Una vez que el \texttt{Simulador} va resolviendo la ejecución del partido, persiste en el administrador de datos el log del minuto a minuto. Asi de esta forma, en caso de que se caiga un simulador en la mitad de un partido, podemos levantar otro simulador que tome ese log parcial para seguir con el transcurso del mismo.
+
+Una vez finalizada la simulación del partido, el \texttt{Simulador} le informa al Receptor de Pedidos el resultado del mismo, para que este se lo informe a su vez al administrador de desafios.
+
+Por otro lado, me pueden llegar pedidos de que desean ver la simulación de algun desafio que se esta ejecutando localmente. De esta forma me llegaria un pedido del \texttt{Administrador de flujo de simulaciones} hacia el Receptor de Pedidos, donde me piden la simulacion de un partido. En caso de tratarse de un partido que todavia no estamos brindando la simulación, el \texttt{Receptor de Pedidos} crea una nueva instancia de un \texttt{Generador de Log Simulable}, una vez creada esta nueva isntancia, le notifico al \texttt{Simulador} pertinente que tiene que comenzar a mandarle el log a este nuevo Generador. Luego este Generador lo que hace es transformar el log minuto a minuto en un log mas rico, que los renders entienden para poder simularlo y mostrarlo graficamente, y enviarselo al \texttt{Administrador de flujo de simulaciones}. Luego el \texttt{Receptor de Pedidos} se guarda que ese partido ya  estamos brindando la simulación. Entonces, en caso de tratarse de un partido el cual ya estamos brindando la simulacion, no se hace nada.
+
+Cada vez que el \texttt{Receptor de Pedidos} recibe una notificacion de fin de partido por parte del \texttt{Simulador}, elimina esta entrada de la tabla donde persiste las simulaciones que estamos brindando en estos momentos y se encarga de destruir las instancias creadas para ese partido en particular.
+
