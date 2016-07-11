@@ -1,0 +1,44 @@
+\subsection{Procesador de Solicitudes HTTP iniciales, geolocalización de IPs y monitoreo de servidores de nivel 5}
+
+% gráfico DNS
+
+El cliente ingresa la URL del sitio. Esto dispara una consulta DNS del navegador
+que retorna aleatoriamente la IP de alguno de los servidores de nivel 1.
+
+Luego el cliente se conecta al servidor de nivel 1 haciendo un GET de HTTP. Esto
+lo recibe el $"$Receptor de solicitud global$"$, que lee la IP fuente y se la pasa al
+$"$Seleccionador de servidor de nivel 5 según IP$"$. Este primero obtiene el GeoPath
+usando el $"$Obtenedor de GeoPath según IP$"$ y luego busca en el repositorio de servidores
+de nivel 5 todos los que estén atendiendo clientes en esa ubicación geográfica y elige uno
+de ellos al azar. Luego retorna la DNS de ese servidor de nivel 5. El $"$Receptor de solicitud
+global$"$ luego envía un mensaje de $"$Redirect$"$ de HTTP con la nueva DNS. Esto en el cliente
+desencadena una nueva consulta DNS por la IP del servidor de nivel 5 correspondiente, y el
+flujo de comunicación continúa con el cliente enviando un GET de HTTP al servidor de nivel 5.
+
+El $"$Obtenedor de GeoPath según IP$"$ busca en el repositorio de GeoPaths por IPs. Este
+repositorio está en cada uno de los servidores de nivel 1 y contiene una tabla con todos los
+rangos de IP del mundo mapeados a su ubicación geográfica usando GeoPath. Este repositorio
+se actualiza todos los días a las 04:00hs de la zona horaria donde el servidor se encuentra
+físicamente. Para actualizarse, se consulta un servicio externo de geolocalización que indica los
+cambios que hubo a nivel mundial. En el caso extremo que una IP es consultada pero aún no
+está en este repositorio, el $"$Obtenedor de GeoPath según IP$"$ detectará la ausencia de la misma
+y entonces ingresará el pedido en el repositorio de $"$IPs nuevas sin GeoPath$"$. Este repositorio
+funciona como blackboard e inmediatamente despierta el proceso de actualización de IPs,
+que consulta únicamente la IP solicitada y la escribe en el repositorio de IPs según GeoPath, para
+que el otro proceso la consuma (se queda haciendo polling hasta que aparece). Se usa un
+repositorio porque podría haber más de una IP nueva al mismo tiempo, y en tal caso cuando el proceso
+de actualización se despierta, actualiza todas las que haya en simultáneo.
+
+Para que este esquema funcione, debemos registrar un nombre para cada servidor de cada nivel en
+el sistema DNS. Por ejemplo, si nuestro dominio fuera www.currygame.com, deberíamos registrar todas
+las IPs de servidores de nivel 1 a ese nombre. Asumismos que DNS distribuye uniformemente
+las consultas entre las distintas IPs (por ejemplo, siempre elige una random con distribución uniforme).
+Luego cada servidor específico debe tener un nombre específico, por ejemplo:
+
+\begin{itemize}
+	\item ar.n1.s2.currygame.com - Nivel 1 de Argentina, server 2.
+	\item ar.n5.s40.currygame.com - Nivel 5 de Argentina, server 40 (que podría ser uno de CABA, BsAs).
+\end{itemize}
+
+Esto permite que el cliente luego pueda ingresar directamente usando la URL específica de su región
+y no necesite hacer la redirección.
