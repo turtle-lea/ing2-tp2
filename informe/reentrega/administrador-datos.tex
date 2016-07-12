@@ -1,6 +1,25 @@
+\newpage
+
 \subsection{Administración de datos} \label{seccionAdmDatos}
 
 % gráficos de ADM de datos (las tres páginas seguidas, y luego la explicación).
+\begin{figure}[H]
+   \centering
+   \includegraphics[height=0.93\textheight]{reentrega/imagenes/admDatos.png}
+   \caption{Componente administrador de datos de nivel i.}
+\end{figure}
+
+\begin{figure}[H]
+   \centering
+   \includegraphics[height=0.93\textheight]{reentrega/imagenes/admDatos-zoom1.png}
+   \caption{Zoom en ``Proveedor de réplicas'' y ``Gestor de acceso a datos''.}
+\end{figure}
+
+\begin{figure}[H]
+   \centering
+   \includegraphics[height=0.93\textheight]{reentrega/imagenes/admDatos-zoom2.png}
+   \caption{Zoom en ``Proveedor de réplicas'' y ``Coordinador de triggers''.}
+\end{figure}
 
 En cada nodo de nivel i (Ej: CABA en nivel 4) hay uno o más servidores. Cada uno tiene un servidor HTTP  y un Data Server con los datos de ese nodo. Todos los servidores en un mismo nodo son réplicas tanto de software como de datos. Por ejemplo, para el GeoPath $<$Sudamérica, Argentina, Bs.As., CABA$>$ tenemos 10 servidores de nivel 4, donde cada uno tiene el mismo software y los mismos datos.
 
