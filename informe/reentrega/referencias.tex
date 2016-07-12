@@ -31,7 +31,11 @@ Se presenta un listado de los conectores y notación especial utilizada en los d
 
 \subsubsection{Client-Server Seguro con destinatario favorito}
 
-%gráfico Referencias (página fila 1 columna 2)
+\begin{figure}[H]
+   \centering
+   \includegraphics[width=\textwidth]{reentrega/imagenes/componente-cs-seguro-favorito.png}
+   \caption{Zoom de conector Client-Server Seguro con destinatario favorito.}
+\end{figure}
 
 El componente Enviador/Receptor intenta enviar el mensaje
 al destinatario favorito (Servidor) mediante SSL y setea un timer.
@@ -50,7 +54,11 @@ en todos los pedidos (a causa de que el favorito está caido).
 
 \subsubsection{Client-Server Seguro con caché en el cliente}
 
-%gráfico Referencias (página fila 1 columna 4)
+\begin{figure}[H]
+   \centering
+   \includegraphics[width=\textwidth]{reentrega/imagenes/componente-cs-seguro-cache.png}
+   \caption{Zoom de conector Client-Server Seguro con caché en el cliente.}
+\end{figure}
 
 El ``Resovedor de request HTTP'' primero busca el recurso en la caché:
 \begin{itemize}
@@ -77,7 +85,12 @@ de caché que en ese tiempo no hayan sido usadas o que tengan TTL=0.
 
 \subsubsection{Client-Server Seguro con destinatario favorito y caché en el cliente}
 
-%gráfico Referencias (página fila 1 columna 3)
+\begin{figure}[H]
+   \centering
+   \includegraphics[width=\textwidth]{reentrega/imagenes/componente-cs-seguro-favorito-cache.png}
+   \caption{Zoom de conector Client-Server Seguro con destinatario favorito y caché en el cliente.}
+\end{figure}
+
 
 El ``Resovedor de request HTTP'' primero busca el recurso en la caché:
 \begin{itemize}
