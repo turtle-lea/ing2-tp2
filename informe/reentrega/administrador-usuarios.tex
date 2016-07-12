@@ -1,11 +1,10 @@
 \subsection{Administrador de Usuarios.}
 
-%
-% \begin{figure}[H]
-%   \centering
-%   \includegraphics[width=\textwidth]{imagenes/Subsistema-de-estadistica-de-partido.png}
-%   \caption{Subsistema de Estadisticas de Partidos.}
-% \end{figure}
+\begin{figure}[H]
+   \centering
+   \includegraphics[width=\textwidth]{reentrega/imagenes/usuarios.png}
+   \caption{Administrador de Usuarios.}
+\end{figure}
 
 En este componente, se reciben y manejan muchos tipos de pedidos, todos enfocados en el usuario. Los pedidos nos pueden llegar de dos fuentes distintas, del \texttt{Administrador de desafios}, que nos manda pedidos de ver los equipos de un usuario, de crear un equipo nuevo, de ver la cantidad de fichas, de descontarle fichas o de sumarle fichas a un usuario. El resto de los pedidos, nos llegan del \texttt{Receptor de pedidos} que nos manda pedidos de login, registro, agregar medio de pago, eliminar medio de pago, mostrar medios de pagos ya registrados, comprar fichas, vender o retirar fichas, ver cantidad de fichas, ver equipos, crear equipos, entre otros.
 
@@ -13,8 +12,7 @@ Todos estos pedidos son recibidos por el \texttt{Manejador de pedidos}, que los 
 
 Por otro lado tenemos un componente \texttt{Encriptador}, el cual se encarga de dada cierta información que le pasan, encriptarla o desencriptarla mediante un algoritmo asimetrico, utilizando la clave publica y la clave privada del Sistema. Asi de esta forma podemos encriptar información sensible, para luego persistirla ya encriptada y que unicamente pueda ser desencriptada con la clave privada del Sistema. Ademas contamos con el componete \texttt{Transmisor de datos}, que representa un simple pasamanos con el \texttt{Administrador de Datos}.
 
-% WAT?
-De esta forma todos estos pedidos se resuelven de la siguiente manera:
+Entonces como dijimos, a este componente le pueden llegar una amplia variedad de pedidos, a continuacion detallaremos como es el flujo de atencion de cada uno de estos pedidos:
 
 En el caso de un pedido de login, se le fowardea el pedido con el usuario y contraseña al \texttt{Autenticador de usuarios}. Este le pide al \texttt{Encriptador}, que nos encripte la contraseña y luego le pide al \texttt{Transmisor de datos} la contraseña que tenemos persistida en el sistema (la cual ya esta encriptada), entonces comparamos ambas contraseñas encriptadas y si estas son iguales, el usuario se autentico con exito, por lo que se le devuelve un codigo de autenticacion exitosa, en caso de ser distintas, se devuelve un codigo de autenticacion rechaza. Esta respuesta es para el \texttt{Manejador de pedidos}, que se encargara de propagar la respuesta a quien corresponda.
 

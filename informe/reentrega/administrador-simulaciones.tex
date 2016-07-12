@@ -1,11 +1,10 @@
 \subsection{Administrador de Simulaciones}
 
-% PRIMER FIGURA
-% \begin{figure}[H]
-%   \centering
-%   \includegraphics[width=\textwidth]{imagenes/Subsistema-de-estadistica-de-partido.png}
-%   \caption{Administrador de simulaciones.}
-% \end{figure}
+\begin{figure}[H]
+   \centering
+   \includegraphics[width=\textwidth]{reentrega/imagenes/simulaciones.png}
+   \caption{Administrador de Simulaciones.}
+\end{figure}
 
 Este componente es el encargado de inicializar y correr los simuladores. En particular nos llegan pedidos del \texttt{Administrador de desafios} donde nos indican que debemos inicializar la simulación de un partido, con una referencia a que deporte es, que equipos participan y la información pertinente de los equipos, es decir jugadores y tecnico. Entonces de esta forma el Receptor de pedidos crea una nueva instancia de un Simulador, con los parametros correspondientes, deporte, equipos, jugadores, tecnico. Luego el Simulador obtiene las estadisticas de cada jugador y comienza a simular el partido, alimentandose tambien de la información recolectada de las redes sociales, para asi mejorar o empeorar el rendimiento de los jugadores.
 
